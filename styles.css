@@ -1,0 +1,95 @@
+html {
+    box-sizing: border-box;
+
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+ 
+    background-color: rgb(207, 41, 41);
+}
+
+.container {
+    border: 1px dotted;
+    padding: 30px;
+    margin-left: 400px;
+
+}
+
+.form-container {
+    font-size: 3em;
+
+}
+
+.new-item {
+    width: 500px;
+    height: 30px;
+    font-size: 20px;
+}
+
+.add-item {
+    margin-left: -5px;
+    text-decoration: none;
+}
+.items-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: -300px;
+    margin-left: 700px;
+    width: 700px;
+    position: absolute;
+    max-height:500px;
+    overflow-y: auto;
+    scrollbar-shadow-color: tomato;
+    border-style:dotted;
+    border-radius: 5%;
+
+
+}
+
+.list {
+ 
+}
+
+
+li {
+    font-size: 2em;
+    color:rgb(248, 248, 248);
+    list-style: none;
+    list-style-position: inside;
+     padding-left: 0;
+     text-transform:capitalize;
+     padding-top: 10px;
+     font-weight: bold;
+    
+
+}
+
+.list {
+
+}
+
+.delete {
+   background-color: blue;
+   color: whitesmoke;
+    width: auto;
+font-size: 1em;
+margin-left: 40%;
+margin-top: 10px;
+    
+}
+.done {
+    background-color: darkred;
+    color: whitesmoke;
+     width: auto;
+ font-size: 1em;
+     
+ }
+
+
+
+.items-container::-webkit-scrollbar { 
+    display: none;  /* Safari and Chrome */
+}
