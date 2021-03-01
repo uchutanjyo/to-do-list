@@ -25,16 +25,25 @@ function addItem(e) {
         for (let item of items) {
             newLi.textContent = itemInput.value;
             list.appendChild(newLi);
-            newLi.appendChild(deleteBtn);
-            newLi.appendChild(doneBtn);
+            newLi.after(deleteBtn);
+            newLi.after(doneBtn);
 
         }
 
             function deleteItem() {
                 list.removeChild(newLi);
+                list.removeChild(deleteBtn);
+                list.removeChild(doneBtn);
             }
             deleteBtn.addEventListener('click', deleteItem);
-       
+
+            function doneItem() {
+                console.log('poo');
+                newLi.classList.toggle('crossout');
+            }
+
+            doneBtn.addEventListener('click', doneItem);
+
 
 
         
