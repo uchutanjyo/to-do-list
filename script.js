@@ -11,7 +11,7 @@ function render(items) {
     let newLi = document.createElement('li');
     let doneBtn = document.createElement('button');
     let deleteBtn = document.createElement('button');
-    
+
         deleteBtn.classList.add('delete');
         deleteBtn.textContent = 'delete';
 
@@ -20,6 +20,7 @@ function render(items) {
 
 
         newLi.textContent = items;
+        newLi.id = new Date().getTime();
         newLi.appendChild(deleteBtn);
         newLi.appendChild(doneBtn);
         list.appendChild(newLi);
@@ -27,10 +28,18 @@ function render(items) {
     // Delete item from list
     function deleteItem() {
 
-        list.removeChild(newLi);
+  
+console.log(b())
 
-
-    }
+        let saved = localStorage.getItem("mylist");
+        if (saved) {
+            itemsArray = JSON.parse(localStorage.getItem("mylist"));
+        itemsArray.splice(b, 1);
+        localStorage.setItem("mylist", JSON.stringify(itemsArray));
+        console.log(itemsArray)
+    } 
+    list.removeChild(newLi);
+}
     deleteBtn.addEventListener('click', deleteItem);
 
 
@@ -43,6 +52,8 @@ function render(items) {
     doneBtn.addEventListener('click', doneItem);
 
 } 
+
+
 
 // On click add item to list
 function createItem() {
