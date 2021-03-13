@@ -4,11 +4,15 @@ const clearItemBtn = document.querySelector('.clear');
 let list = document.querySelector('.list');
 let itemsArray = [];
 
+
 // render
-function render(items) {
+function render(item) {
 
     //  Create element, delete button, done button 
     let newLi = document.createElement('li');
+    newLi.setAttribute('data-key', item.id);
+    newLi.textContent = item.text;
+
     let doneBtn = document.createElement('button');
     let deleteBtn = document.createElement('button');
 
@@ -18,30 +22,29 @@ function render(items) {
         doneBtn.classList.add('done');
         doneBtn.textContent = 'done';
 
-
-        newLi.textContent = items;
-        newLi.id = new Date().getTime();
         newLi.appendChild(deleteBtn);
         newLi.appendChild(doneBtn);
         list.appendChild(newLi);
+        
+        function deleteItem() {
+            let saved = localStorage.getItem("mylist");
+             window.onclick = e => {
+                 let clicked = e.target.parentElement;
+                let newArray =  itemsArray.filter(function(item) {
+                    console.log(clicked.getAttribute("data-key") 
+                    );
+                       return clicked.getAttribute("data-key") != item.id
+                        
+                        }  )  
+                        console.log(newArray) ;      
+                        localStorage.setItem("mylist", JSON.stringify(newArray));}
+                  
+                
 
-    // Delete item from list
-    function deleteItem() {
+            list.removeChild(newLi);
 
-  
-console.log(b())
-
-        let saved = localStorage.getItem("mylist");
-        if (saved) {
-            itemsArray = JSON.parse(localStorage.getItem("mylist"));
-        itemsArray.splice(b, 1);
-        localStorage.setItem("mylist", JSON.stringify(itemsArray));
-        console.log(itemsArray)
-    } 
-    list.removeChild(newLi);
-}
-    deleteBtn.addEventListener('click', deleteItem);
-
+        }
+        deleteBtn.addEventListener('click', deleteItem);
 
     // Mark item as 'done'
     function doneItem() {
@@ -53,22 +56,27 @@ console.log(b())
 
 } 
 
+function createItem() {
+if (itemInput.value) {
+        let item = {
+            text: itemInput.value,
+            id: new Date().getTime()
+        }
+        itemsArray.push(item);
+     
+        render(item);
+        localStorage.setItem("mylist", JSON.stringify(itemsArray));
+    } else {  
+        alert("WHY? (please type something you need to do today)")
+    }
+}
+
+
+
+
 
 
 // On click add item to list
-function createItem() {
-    if (itemInput.value) {
-        itemsArray.push(itemInput.value);
-        render(itemInput.value);
-        localStorage.setItem("mylist", JSON.stringify(itemsArray));
-
-    
-       
-    } else {
-        alert("WHY (please type something you need to do today)")
-    }
-
-}
 
 function getSaved() {
     let saved = localStorage.getItem("mylist");
@@ -78,13 +86,11 @@ function getSaved() {
 
            let i=0;
         while(i <= itemsArray.length -1) {
+     
             render(itemsArray[i]);
-            i++;
-
+            i++
         }
-
     }
-
     else {
         console.log('none')
     }

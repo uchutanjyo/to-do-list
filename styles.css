@@ -8,7 +8,8 @@ body {
     display: flex;
     align-items: center;
  
-    background-color: rgb(207, 41, 41);
+    background-color: rgb(50, 141, 73);
+
 }
 
 .container {
@@ -46,7 +47,7 @@ body {
     display: flex;
     flex-direction: column;
     margin-top: -300px;
-    margin-left:600px;
+    margin-left:800px;
     width: 700px;
     position: absolute;
     max-height:500px;
