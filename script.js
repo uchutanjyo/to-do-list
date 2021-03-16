@@ -25,6 +25,10 @@ function render(item) {
         newLi.appendChild(deleteBtn);
         newLi.appendChild(doneBtn);
         list.appendChild(newLi);
+        if (item.done == true) {
+            newLi.classList.toggle('crossout');
+
+        }
         
         function deleteItem() {
             let saved = localStorage.getItem("mylist");
@@ -49,8 +53,36 @@ function render(item) {
     // Mark item as 'done'
     function doneItem() {
 
-        newLi.classList.toggle('crossout');
+        let saved = localStorage.getItem("mylist");
+    if (saved) {
+        itemsArray = JSON.parse(localStorage.getItem("mylist"));
+        console.log(itemsArray)
+        window.onclick = e => {
+            let clicked = e.target.parentElement; 
+
+         let result =  itemsArray.map(function(item)  {
+            const container = {};
+            container.text = item.text;
+            container.id = item.id; 
+            container.done = item.done;
+ 
+            if (clicked.getAttribute("data-key") == item.id && !container.done){
+                container.done = true;
+                newLi.classList.toggle('crossout');
+            } 
+                else if(clicked.getAttribute("data-key") == item.id && container.done){
+                    container.done = false; 
+                    newLi.classList.toggle('crossout');
+                }
+         
+                return container
+         })
+         console.log(result);
+   localStorage.setItem("mylist", JSON.stringify(result)); 
+}
+       } 
     }
+    
 
     doneBtn.addEventListener('click', doneItem);
 
@@ -60,7 +92,8 @@ function createItem() {
 if (itemInput.value) {
         let item = {
             text: itemInput.value,
-            id: new Date().getTime()
+            id: new Date().getTime(),
+            done: false
         }
         itemsArray.push(item);
      
@@ -71,25 +104,21 @@ if (itemInput.value) {
     }
 }
 
-
-
-
-
-
 // On click add item to list
 
 function getSaved() {
     let saved = localStorage.getItem("mylist");
     if (saved) {
         itemsArray = JSON.parse(localStorage.getItem("mylist"));
-        console.log(itemsArray);
-
+console.log(itemsArray)
            let i=0;
         while(i <= itemsArray.length -1) {
      
             render(itemsArray[i]);
+            
             i++
         }
+      
     }
     else {
         console.log('none')
