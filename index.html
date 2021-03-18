@@ -4,30 +4,92 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>todolist--</title>
+    <title>meal-planner--</title>
     <link rel="stylesheet" href="styles.css">
 
 </head>
 <body>
-    <div class="container">
+    <div class="layer">
+    <div class="title-container" id="main-title">
+
+        <h1>Meal planner</h1>
+    </div>
+    <div class="left-and-right">
+        <div class="left-bottom-container">
+            <div id="ingredient-title">
+                <h2>1. Menu item</h2>
+            
+            </div>
+            <div class="form-container">
+                <form  class="form" id="meal">
+                    <!-- <h1>Please add your ingredients.</h1> -->
+                    <span>
+                    <label for="item-input">dish name</label>
+                    <input type="text" class="dish-input">
+                </span>
+                <span>
+                    <label for="meal-type">meal type? (e.g. breakfast, snack)</label>
+                    <input type="text" class="meal-type-input" name="meal-type"> 
+                </span>
+                <span>
+                    <label for="time" id="time">time</label>
+                    <input type="time" class="time-input" name="time"> 
+                    <button class="submit">Submit</button>
+                </span>
+            
+                </form>
+            </div>
+   <div class="left-container">
+<div id="ingredient-title">
+    <h2>2. Ingredients </h2>
+
+</div>
 <div class="form-container">
-
-    <h1>To do list</h1>
-
     <form  class="form">
+        <span id="choose">  <span class="pending-item"></span> 
+   
+        <span class="item-type"></span> 
+        <span class="item-time"></span> 
+        
+     </span>
+  
+        <label for="item-input">ingredient</label>
         <input type="text" class="item-input">
+        <span>
+        <label for="quantity">quantity</label>
+        <input type="number" class="quantity-select" name="quantity" min="1" max="99"> 
+<b>OR</b>
+        <label for="amount" id="amount">amount</label>
+        <input type="text" class="amt-select" name="amount"> 
+    </span>
+    <br>
+    <span>
         <button type="button" class="add-item">Add item</button>
         <button type="button" class="clear">Clear items</button>
-
+    </span>
     </form>
 </div>
-<div class="items-container">
+<div class="headings">
+  
+<span><h2>item</h2></span>
+<span id="quantity-heading"><h2>quantity </h2></span>
+<span id="amount-heading"><h2>amount </h2></span>
+
+
+</div>
+<div class="items-container" id="ingredient-stock">
     <div class="items">
         <ul class="list">
-            <!-- <button class="delete-button" hidden ></button>
-            <button class="done-button" hidden></button> -->
+  
         </ul>
     </div>
+    
+</div>
+
+</div>
+
+</div>
+</div>
 </div>
 </div>
 </body>
