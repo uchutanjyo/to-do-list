@@ -100,6 +100,22 @@ h1, h2, h3 {
 
 }
 
+
+
+#choose {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-bottom: 15px;
+    background-color: rgba(6, 8, 26, 0.7);
+    color: white;
+    padding: 5px;
+
+}
+
 .pending-item {
     color:rgb(216, 59, 208);
     font-family:fantasy;
@@ -109,6 +125,7 @@ h1, h2, h3 {
     overflow-x: auto;
     overflow-wrap: break-word;
     font-weight: normal;
+
 }
 
 .item-type {
@@ -121,21 +138,15 @@ h1, h2, h3 {
     margin-left: 10px;
 
 }
-
-#choose {
-    display: flex;
-    justify-content: left;
-    align-items: center;
-    height: 50px;
-    margin-left: 15px;
-    margin-right: 15px;
-    margin-bottom: 15px;
-    background-color: rgba(6, 8, 26, 0.7);
+.edit {
+    margin-left: 20px;
+    background-color: rgba(30, 30, 70, 0.7);
     color: white;
-    padding: 5px;
-
 }
 
+.hidden {
+    display: none
+}
 
 .new-item {
     width: 500px;
@@ -187,7 +198,7 @@ width: 130px;
 }
 
 .amount {
-    width: 40px;
+    width: 60px;
     font-size: 20px;
     margin-left: 30px;
     overflow-x: auto;
@@ -202,6 +213,8 @@ overflow-wrap: break-word;
     margin-top: 10px;
     width: 130px;
     font-style: cursive;
+    background-color: rgba(30, 30, 70, 0.7);
+    color: white;
 
 }
 
@@ -210,7 +223,14 @@ overflow-wrap: break-word;
     margin-right: 10px;
     margin-left: 20px;
     margin-top: 10px;
-    width: 130px
+    width: 130px;
+    background-color: rgba(30, 30, 70, 0.7);
+    color: white;
+}
+
+#submit-item {
+    background-color: rgba(30, 30, 70, 0.7);
+    color: white;
 }
 
 #ingredient-stock {
@@ -274,6 +294,7 @@ label {
     font-family:cursive;
     border-style: solid;
     border-radius: 5%;    text-align: center;
+    
 
 }
 
@@ -284,8 +305,8 @@ label {
 .delete {
     text-align: center;
 
-   background-color: rgb(105, 105, 195);
-   color: rgb(5, 5, 5);
+    background-color: rgba(76, 76, 207, 0.4);
+    color: white;
    width: 40px;
    height: 30px;
    font-size: 10px;
@@ -297,8 +318,8 @@ border-radius: 5%;
     
 }
 .select {
-    background-color: rgb(88, 78, 78);
-    color: rgb(5, 5, 5);
+    background-color: rgba(76, 76, 207, 0.4);
+    color: white;
 
     width: 40px;
     height: 30px;
@@ -350,7 +371,9 @@ border-radius: 5%;
     margin-bottom: 10px;
 }
  .crossout {
-   background-color: rgba(255,255,255,0.9)
+   background-color: rgba(255,255,255,0.9);
+   color: rgba(6, 8, 26, 0.7);
+
  }
 
 

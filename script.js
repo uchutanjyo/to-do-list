@@ -3,10 +3,10 @@ const dishInput = document.querySelector('.dish-input');
 const typeInput = document.querySelector('.meal-type-input');
 const timeInput = document.querySelector('.time-input');
 const submitButton = document.querySelector('.submit');
+const editItemButton = document.querySelector('.edit');
 let pendingItem = document.querySelector('.pending-item');
 let itemType = document.querySelector('.item-type');
 let itemTime = document.querySelector('.item-time');
-
 
 
 let menuItem = document.querySelector('.item');
@@ -56,8 +56,43 @@ function createMenuItem(e) {
     pendingItem.textContent = menuItem.name;
     itemType.textContent = menuItem.type
     itemTime.textContent = menuItem.time;
+    editItemButton.classList.remove('hidden');
+
 
   }
+
+  function editItemName (e) {
+      e.preventDefault();
+
+      if (editItemButton.textContent === 'Edit menu item' && e) {
+      
+  pendingItem.contentEditable = "true"; 
+  itemType.contentEditable = "true"; 
+itemTime.contentEditable = "true"; 
+pendingItem.classList.toggle('crossout');
+itemType.classList.toggle('crossout');
+itemTime.classList.toggle('crossout');
+
+editItemButton.textContent = 'Save menu item'
+      }
+
+      else if (editItemButton.textContent === 'Save menu item' && e) {
+        editItemButton.textContent = 'Edit menu item'
+        pendingItem.contentEditable = "false"; 
+        itemType.contentEditable = "false"; 
+      itemTime.contentEditable = "false"; 
+      pendingItem.classList.toggle('crossout');
+      itemType.classList.toggle('crossout');
+      itemTime.classList.toggle('crossout');
+
+      }
+      
+console.log('AH')
+
+
+  }
+
+  editItemButton.addEventListener('click', editItemName)
 
 submitButton.addEventListener('click', createMenuItem)
 
@@ -190,8 +225,9 @@ if (itemInput.value) {
      
         render(item);
         localStorage.setItem("mylist", JSON.stringify(itemsArray));
+
     } else {  
-        alert("WHY? (please type something you need to do today)")
+        alert("If your ingredient is ' ', there's no need to add it to this list.")
     }
 }
 
