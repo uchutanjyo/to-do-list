@@ -398,7 +398,7 @@ margin: 0;
     padding: 10px;
     font-size: 1em;
     color: black;
-
+    text-align: center;
 }
 
 #name {
@@ -431,9 +431,37 @@ margin-right: 10px
 
 }
 
+.confirm-ingredients {
+    display: flex;
+    flex-direction: column;
+   align-items: center;
+    color:sandybrown;
+    letter-spacing: 2px;
+    max-height: 200px;
+    overflow-y: auto;
+  
+}
 
 .confirm-ingredients li {
-color:rgba(22, 48, 241, 0.5)
+    color: rgb(0, 225, 255)
+}
+
+.buttons {
+    display: flex;
+   justify-content: center;
+   margin-top: 10px
+}
+
+.submit {
+    
+    width: 100px;
+
+}
+
+.delete1 {
+    
+    width: 100px;
+
 }
 
  .crossout {

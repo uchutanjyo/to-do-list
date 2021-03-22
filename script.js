@@ -47,13 +47,20 @@ function createMenuItem(e) {
                 time: timeInput.value,
                 id: new Date().getTime(),
             }
+ 
             if (!typeInput.value) {
                menuItem.type = 'N/A'
             }
             if (!timeInput.value) {
                 menuItem.time = 'N/A'
              }
+
+             if (!menuItemsArray[0]) {
             menuItemsArray.push(menuItem);
+             }
+            else if (menuItemsArray[0]) {
+                menuItemsArray [0] = menuItem
+            }
          
             renderMenuItem(menuItem);
             localStorage.setItem("menuitemlist", JSON.stringify(menuItemsArray));
@@ -99,10 +106,6 @@ editItemButton.textContent = 'Save menu item'
       itemTime.classList.toggle('crossout');
 
       }
-      
-console.log('AH')
-
-
   }
 
   editItemButton.addEventListener('click', editItemName)
@@ -247,13 +250,36 @@ if (itemInput.value) {
 submitMenuItem.addEventListener('click', confirmMenuItem)
 
 function confirmMenuItem() {
-    console.log(menuItemsArray[0].name);
-    console.log(menuItemsArray[0].time);
+    if (pendingItem.textContent != menuItemsArray[0].name ||
+       itemType.textContent != menuItemsArray[0].type ||
+        itemTime.textContent != menuItemsArray[0].time) {
+        menuItemsArray =  menuItemsArray.map(function()  {
+            const cont = {};
+            cont.name = pendingItem.textContent;
+            cont.type = itemType.textContent;
+            cont.time= itemTime.textContent;
+            cont.id = new Date().getTime();
+            return cont
+        } )
+    console.log(menuItemsArray);
+
+        name1.textContent = menuItemsArray[0].name;
+ type.textContent = menuItemsArray[0].type;
+ time.textContent = menuItemsArray[0].time;
+    }
+    else {
+    
+    console.log(menuItemsArray);
+
 name1.textContent = menuItemsArray[0].name;
  type.textContent = menuItemsArray[0].type;
  time.textContent = menuItemsArray[0].time;
+
+    }
+
 as.classList.remove('hidden');
 at.classList.remove('hidden');
+
 
 for (let item of itemsArray) {
     let ingredient = document.createElement('li');
@@ -261,7 +287,14 @@ for (let item of itemsArray) {
     else if (item.qty )  { item.qty = ''}
  ingredient.textContent =  `${item.text} ${item.qty} ${item.amt}`;
 
- confirmIngredients.appendChild(ingredient)
+ confirmIngredients.appendChild(ingredient);
+ clearItems();
+ editItemButton.classList.add('hidden');
+
+ pendingItem.textContent = '';
+       itemType.textContent = '';
+        itemTime.textContent = ''
+
 
 };
 
@@ -294,7 +327,7 @@ getSaved();
 function clearItems() {
     list.innerHTML = "";
     localStorage.clear();
-    itemsArray = [];
+itemsArray = [];
 
 };
 
