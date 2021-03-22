@@ -22,8 +22,19 @@ const amtInput = document.querySelector('.amt-select');
 
 const addItemBtn = document.querySelector('.add-item');
 const clearItemBtn = document.querySelector('.clear');
+const submitMenuItem = document.querySelector('#submit-item');
 let list = document.querySelector('.list');
 let itemsArray = [];
+
+// confirm
+let name1 = document.querySelector('#name');
+let type = document.querySelector('#type');
+let time = document.querySelector('#time1');
+let as = document.querySelector('#as');
+let at = document.querySelector('#at');
+let confirmIngredients = document.querySelector('.confirm-ingredients');
+
+
 
 
 // Menu form
@@ -74,6 +85,8 @@ itemType.classList.toggle('crossout');
 itemTime.classList.toggle('crossout');
 
 editItemButton.textContent = 'Save menu item'
+
+
       }
 
       else if (editItemButton.textContent === 'Save menu item' && e) {
@@ -230,6 +243,32 @@ if (itemInput.value) {
         alert("If your ingredient is ' ', there's no need to add it to this list.")
     }
 }
+
+submitMenuItem.addEventListener('click', confirmMenuItem)
+
+function confirmMenuItem() {
+    console.log(menuItemsArray[0].name);
+    console.log(menuItemsArray[0].time);
+name1.textContent = menuItemsArray[0].name;
+ type.textContent = menuItemsArray[0].type;
+ time.textContent = menuItemsArray[0].time;
+as.classList.remove('hidden');
+at.classList.remove('hidden');
+
+for (let item of itemsArray) {
+    let ingredient = document.createElement('li');
+    if (item.amt === 'N/A') {item.amt = '';}
+    else if (item.qty )  { item.qty = ''}
+ ingredient.textContent =  `${item.text} ${item.qty} ${item.amt}`;
+
+ confirmIngredients.appendChild(ingredient)
+
+};
+
+
+}
+
+
 
 // On click add item to list
 
