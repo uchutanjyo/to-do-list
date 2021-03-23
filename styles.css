@@ -208,6 +208,10 @@ overflow-wrap: break-word;
 
 }
 
+.buttons1 {
+    display: flex;
+align-items: center;}
+
 .add-item {
     text-decoration: none;
     margin-right: 10px;
@@ -223,9 +227,9 @@ overflow-wrap: break-word;
 .clear {
     text-decoration: none;
     margin-right: 10px;
-    margin-left: 20px;
+    margin-left: 5px;
     margin-top: 10px;
-    width: 130px;
+    width: 160px;
     background-color: rgba(30, 30, 70, 0.7);
     color: white;
 }
@@ -442,6 +446,10 @@ margin-right: 10px
   
 }
 
+.ingredients-list {
+    
+}
+
 .confirm-ingredients li {
     color: rgb(0, 225, 255)
 }
@@ -453,9 +461,9 @@ margin-right: 10px
 }
 
 .submit {
-    
-    width: 100px;
-
+    background-color: rgba(30, 30, 70, 0.7);
+    color: white;
+    width: 300px;
 }
 
 .delete1 {
