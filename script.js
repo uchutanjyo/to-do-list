@@ -57,6 +57,10 @@ function createMenuItem(e) {
             menuItem.time = 'N/A'
         }
 
+       dishInput.value = '';
+        typeInput.value ='';
+       timeInput.value ='';
+
         if (!menuItemsArray[0]) {
             menuItemsArray.push(menuItem);
         } else if (menuItemsArray[0]) {
@@ -231,6 +235,10 @@ function createItem() {
         if (!qtyInput.value) {
             item.qty = 'N/A'
         }
+     itemInput.value  = '';
+      qtyInput.value  = '';
+       amtInput.value  = '';
+        
         itemsArray.push(item);     
 
 
