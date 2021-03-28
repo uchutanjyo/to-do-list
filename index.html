@@ -30,9 +30,17 @@
                     <input type="text" class="dish-input">
                 </span>
                 <span>
-                    <label for="meal-type">meal type? (e.g. breakfast, snack)</label>
-                    <input type="text" class="meal-type-input" name="meal-type"> 
-                </span>
+                    <label for="meal-type">meal type</label>
+                    <select default="" class="meal-type-input" name="meal-type">
+                        <option value="other"></option>
+                      <option value="breakfast">Breakfast</option>
+                      <option value="lunch">Lunch</option>
+                      <option value="dinner">Dinner</option>
+                      <option value="snack">Snack</option>
+                      <option value="other">Other</option>
+
+                    </select> 
+                                  </span>
                 <span>
                     <label for="time" id="time">time</label>
                     <input type="text" class="time-input" name="time"> 
@@ -118,9 +126,13 @@
         </span>
         <div class="calendar">
             <div class="calendar-container">
-                <div class="header">Calendar</div>
-                <div class="todays-date">
+                <div class="header"><h3>Calendar</h3>
+                    <div>Please select a day(s) and click 'submit' to add your menu item to the calendar. Then, click the calendar day to view your menu for that day.</div>
+                </div>
+                <div>
 
+                </div>
+                <div class="todays-date">
                 </div>
                
                 <div id="app-calendar" >

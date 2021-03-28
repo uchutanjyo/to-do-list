@@ -56,7 +56,7 @@ function createMenuItem(e) {
         }
 
         if (!typeInput.value) {
-            menuItem.type = 'N/A'
+            menuItem.type = 'other'
         }
         if (!timeInput.value) {
             menuItem.time = 'N/A'
@@ -424,7 +424,7 @@ addItemBtn.addEventListener('click', createItem);
 const today = new Date();
 const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
 let calendarTitle = document.querySelector('.todays-date');
-calendarTitle.textContent = date;
+calendarTitle.innerHTML = `Today's date: ${date}`;
 
 
 
@@ -446,7 +446,7 @@ for (let day = 1; day <= daysInThisMonth(); day++) {
 
     }
     calendar.insertAdjacentHTML("beforeend", `<div class="week ${weekend ? "weekend" : ""}">
-    <div class ="name">${name}</div> <div class="day">${day}</div></div>`);
+ <div class ="name">${name}</div> <div class="day">${day}</div></div>`);
 }
 
 let dayOfWeek = document.querySelectorAll('#app-calendar .week');
@@ -456,19 +456,35 @@ week.addEventListener('click', event => {
  event.currentTarget.classList.toggle('crossout');
  })})
 
+ const week = document.querySelector('.week');
+
  
 const submitToCalendarBtn = document.querySelector('#submit');
 function submitToCalendar () {
-    // dayOfWeek.forEach(week => {
-  
+    if (!week.classList.contains('crossout') ) {
+        alert("Please select a calendar day.")
+    }
+    
+    // alert("are you sure you want to submit?")
         dayOfWeek.forEach(day => { 
+           
             if (day.classList.contains('crossout') ) {
-               let poo = document.createElement('li');
-               let mealType = type.textContent;
-             mealType.textContent == 'N/A' ? mealType = 'unknown meal type' : mealType = type.textContent;
-
-               poo.textContent = `${type.textContent}: ${name1.textContent} at ${time.textContent}`
-               day.appendChild(poo)
+               let a = document.createElement('a');
+             
+            //    type.textContent == 'N/A' ? type.textContent = 'unknown meal type' :type.textContent = type.textContent;
+            a.classList.add('legend');
+            if (type.textContent == 'breakfast') {
+                a.innerHTML = `<a  id="breakfast" class="legend"></a>`; }
+            else if(type.textContent == 'lunch') {
+                a.innerHTML = `<a  id="lunch" class="legend"></a>`; }
+                else if(type.textContent == 'dinner') {
+                    a.innerHTML = `<a  id="dinner" class="legend"></a>`; }
+                    else if(type.textContent == 'snack') {
+                        a.innerHTML = `<a  id="snack" class="legend"></a>`; }
+                        else if(type.textContent == 'other') {
+                            a.innerHTML = `<a  id="other" class="legend"></a>`; }
+                            
+               day.appendChild( a)
              }
              else { console.log('AH')}
 })

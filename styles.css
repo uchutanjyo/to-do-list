@@ -92,6 +92,11 @@ h1, h2, h3 {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 
 }
+
+h2 {
+    font-size: 1em;
+    color: white
+}
 .form-container {
     border: 1px dotted;
     padding: 10px;
@@ -362,8 +367,8 @@ border-radius: 5%;
 }
 
 .meal-type-input {
-    width: 150px;
-    height: 20px;
+    width: 200px;
+    height: 30px;
     font-size: 15px;
     margin-right: 10px;
     margin-bottom: 10px;
@@ -493,6 +498,7 @@ margin-right: 10px
 
     .header {
         text-align: center;
+        font-size: 15px;
         padding: 10px;
         background-color: rgba(76, 76, 207, 0.4);
 
@@ -516,6 +522,10 @@ margin-right: 10px
         padding: 5px;
         border: 1px dotted;
         font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        height: 90px;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
 
 
         
@@ -523,12 +533,15 @@ margin-right: 10px
       }
 
       .week:hover {
-          background-color: rgb(114, 177, 175);
-          opacity: 0.7
+          opacity: 0.8
       }
 
       .day {
           margin-top: 10px;
+          font-size: 15px;
+          display: flex;
+    
+
       }
 
       .weekend {
@@ -537,13 +550,51 @@ margin-right: 10px
       }
 
       .weekend:hover {
-        background-color: yellow;
-
+        opacity: 0.8
       }
 
-    
+     .todays-date {
+         padding: 5px;
+     }
 
+     .legend {
+        border-radius: 50%;
+        position:initial;
+        display: block;
+        width: 7px;
+        height: 7px;
+        text-decoration: none;
+        cursor: default;
+        border: 1px dotted
+     }
 
+     .legend-span {
+
+     }
+
+     #breakfast {
+        background-color: rgb(243, 255, 139);
+         }
+
+     #lunch {
+        background-color: rgb(59, 172, 44);
+
+    }
+
+    #dinner {
+        background-color: rgb(218, 19, 19);
+
+    }
+
+    #snack {
+        background-color: rgb(207, 37, 199);
+
+    }
+
+    #other {
+        background-color: rgb(153, 149, 153);
+
+    }
  .crossout {
     background-color: rgba(255,255,255,0.9);
     color: black;
