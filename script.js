@@ -1,3 +1,8 @@
+import {isWeekend,  getDayName} from "./date-helpers.js";
+
+
+
+
 // Menu item
 const dishInput = document.querySelector('.dish-input');
 const typeInput = document.querySelector('.meal-type-input');
@@ -413,3 +418,61 @@ clearItemBtn.addEventListener('click', clearItems);
 
 // Add item event listesner
 addItemBtn.addEventListener('click', createItem);
+
+// Calendar
+
+const today = new Date();
+const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+let calendarTitle = document.querySelector('.todays-date');
+calendarTitle.textContent = date;
+
+
+
+const calendar = document.querySelector("#app-calendar");
+
+function daysInThisMonth() {
+    return new Date(today.getFullYear(), today.getMonth()+1, 0).getDate();
+  }
+
+  
+for (let day = 1; day <= daysInThisMonth(); day++) {
+   
+    const weekend = isWeekend(day);
+    let name = "";
+    if(day <= 7) {
+        const dayName = getDayName(day);
+        name = `<div class ="name">${dayName}</div>`;
+
+
+    }
+    calendar.insertAdjacentHTML("beforeend", `<div class="week ${weekend ? "weekend" : ""}">
+    <div class ="name">${name}</div> <div class="day">${day}</div></div>`);
+}
+
+let dayOfWeek = document.querySelectorAll('#app-calendar .week');
+dayOfWeek.forEach(week => {
+week.addEventListener('click', event => {
+    console.log(event.currentTarget)
+ event.currentTarget.classList.toggle('crossout');
+ })})
+
+ 
+const submitToCalendarBtn = document.querySelector('#submit');
+function submitToCalendar () {
+    // dayOfWeek.forEach(week => {
+  
+        dayOfWeek.forEach(day => { 
+            if (day.classList.contains('crossout') ) {
+               let poo = document.createElement('li');
+               let mealType = type.textContent;
+             mealType.textContent == 'N/A' ? mealType = 'unknown meal type' : mealType = type.textContent;
+
+               poo.textContent = `${type.textContent}: ${name1.textContent} at ${time.textContent}`
+               day.appendChild(poo)
+             }
+             else { console.log('AH')}
+})
+      
+}
+
+submitToCalendarBtn.addEventListener('click', submitToCalendar)

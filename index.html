@@ -7,8 +7,10 @@
     <title>meal-planner--</title>
     <link rel="stylesheet" href="styles.css">
 
+
 </head>
 <body>
+  
     <div class="layer">
     <div class="title-container" id="main-title">
 
@@ -109,14 +111,30 @@
     <ul class="ingredients-list"></ul></div>
     <span class="buttons">
         
-        <button class="date">Choose Date</button>
-<input type="date">
         <button class="delete1">Delete</button>
 
-            <button class="submit">Submit</button>
+            <button id="submit">Submit</button>
 
         </span>
+        <div class="calendar">
+            <div class="calendar-container">
+                <div class="header">Calendar</div>
+                <div class="todays-date">
+
+                </div>
+               
+                <div id="app-calendar" >
+                 
+                </div>
+            <!-- week2 -->
+               
+                </div>
+        </div>
     </div>
+    
+    </div>
+    <div class="event" data-date="2020-03-26T13:30:00">
+      <div class="date"></div>
     </div>
 </div>
 
@@ -124,6 +142,8 @@
 </div>
 </div>
 </body>
-<script src="script.js"></script>
+<script src="https://unpkg.com/dayjs"></script>
+
+<script type="module" src="script.js"></script>
 
 </html>
