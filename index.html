@@ -10,8 +10,8 @@
 
 </head>
 <body>
-  
     <div class="layer">
+
     <div class="title-container" id="main-title">
 
         <h1>Meal planner</h1>
@@ -127,14 +127,15 @@
         <div class="calendar">
             <div class="calendar-container">
                 <div class="header"><h3>Calendar</h3>
-                    <div>Please select a day(s) and click 'submit' to add your menu item to the calendar. Then, click the calendar day to view your menu for that day.</div>
+                    <div>Please select a day(s) and click 'submit' to add your menu item to the calendar. Click 'open calendar' to open large calendar and view your menu.</div>
                 </div>
                 <div>
 
                 </div>
                 <div class="todays-date">
                 </div>
-               
+                <button class="open-calendar">Open menu calendar</button>
+
                 <div id="app-calendar" >
                  
                 </div>
@@ -152,6 +153,22 @@
 
 </div>
 </div>
+</div>
+</div>
+
+<!-- Calendar Modal -->
+<div class="modal-container">
+    <div class="modal-header">
+        <span class="todays-date" id="modal-date">
+        </span>
+        <span class="modal-info">
+            click a calendar day to view your menu (including ingredients) for that day.        </div>
+        </span>
+        <span class="close">
+            <button class="close-calendar">Close calendar</button>
+
+        </span>
+    <div class="modal" id="modal"></div>
 </div>
 </body>
 <script src="https://unpkg.com/dayjs"></script>

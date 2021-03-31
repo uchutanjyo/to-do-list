@@ -419,11 +419,11 @@ clearItemBtn.addEventListener('click', clearItems);
 // Add item event listesner
 addItemBtn.addEventListener('click', createItem);
 
-// Calendar
+// Small Calendar
 
 const today = new Date();
 const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-let calendarTitle = document.querySelector('.todays-date');
+const calendarTitle = document.querySelector('.todays-date');
 calendarTitle.innerHTML = `Today's date: ${date}`;
 
 
@@ -434,7 +434,7 @@ function daysInThisMonth() {
     return new Date(today.getFullYear(), today.getMonth()+1, 0).getDate();
   }
 
-  
+
 for (let day = 1; day <= daysInThisMonth(); day++) {
    
     const weekend = isWeekend(day);
@@ -449,30 +449,99 @@ for (let day = 1; day <= daysInThisMonth(); day++) {
  <div class ="name">${name}</div> <div class="day">${day}</div></div>`);
 }
 
-let dayOfWeek = document.querySelectorAll('#app-calendar .week');
+
+// large calendar
+
+
+const menuCalendarContainer = document.querySelector('.modal-container');
+const menuCalendar = document.querySelector('#modal');
+const openCalendarBtn = document.querySelector('.open-calendar');
+const closeCalendarBtn = document.querySelector('.close-calendar');
+
+const modalWeek = document.querySelector('.modal-week');
+const modalDate = document.querySelector('#modal-date');
+modalDate.innerHTML = `Today's date: ${date}`;
+
+
+for (let day = 1; day <= daysInThisMonth(); day++) {
+   
+    const weekend = isWeekend(day);
+    let name = "";
+    if(day <= 7) {
+        const dayName = getDayName(day);
+        name = `<div class ="name">${dayName}</div>`;
+
+
+    }
+    menuCalendar.insertAdjacentHTML("beforeend", `<div class="modal-week ${weekend ? "weekend" : ""}">
+ <div class ="name">${name}</div> <div class="day">${day}</div></div>`);
+}
+
+
+
+        
+// Show Large Calendar Modal
+function showModal() {
+menuCalendarContainer.classList.toggle('show-modal');
+
+}
+
+// Close modal calendar
+function closeModal() {
+    menuCalendarContainer.classList.toggle('show-modal');
+}
+
+openCalendarBtn.addEventListener('click', showModal);
+closeCalendarBtn.addEventListener('click', closeModal);
+
+let dayOfWeek = document.querySelectorAll('.week');
+let dayOfWeekModal  = document.querySelectorAll('.modal-week');
+
+
+const week = document.querySelector('.week');
+const submitToCalendarBtn = document.querySelector('#submit');
+
+function createBigCalendar() {
 dayOfWeek.forEach(week => {
 week.addEventListener('click', event => {
     console.log(event.currentTarget)
- event.currentTarget.classList.toggle('crossout');
+    let crossed = event.currentTarget;
+    // Day # of clicked element on small calendar
+    let crossed3 = event.currentTarget.children[1].textContent
+    // Makes  array of all day #s from large calendar; finds day# with same # as clicked element on small calendar
+    let crossed2 = Array.from(document.querySelectorAll('.modal-week .day')).filter(day => day.textContent == crossed3)[0];
+    crossed2.parentElement.classList.toggle('crossout')
+
+crossed.classList.toggle('crossout');
+
  })})
+}
 
- const week = document.querySelector('.week');
+createBigCalendar()
 
- 
-const submitToCalendarBtn = document.querySelector('#submit');
-function submitToCalendar () {
-    if (!week.classList.contains('crossout') ) {
-        alert("Please select a calendar day.")
-    }
+// Check if any days of week contain 'crossout' class
+function isCrossout() {
+    Array.from(dayOfWeek).some(day =>{ 
+        
+        return day.classList.contains('crossout') === true
+    })}
+
+// Append to calendar, takes calendar days as paramter
+function submitToCalendar (daysOfMonth) {
+   if (isCrossout()) {
+       console.log('sdfsdf')
+    alert("Please select a calendar day.")
     
-    // alert("are you sure you want to submit?")
-        dayOfWeek.forEach(day => { 
-           
+   }
+   
+   else if (!isCrossout()) {
+       console.log(daysOfMonth)
+        daysOfMonth.forEach(day => { 
+          
             if (day.classList.contains('crossout') ) {
                let a = document.createElement('a');
              
-            //    type.textContent == 'N/A' ? type.textContent = 'unknown meal type' :type.textContent = type.textContent;
-            a.classList.add('legend');
+               a.classList.add('legend');
             if (type.textContent == 'breakfast') {
                 a.innerHTML = `<a  id="breakfast" class="legend"></a>`; }
             else if(type.textContent == 'lunch') {
@@ -484,11 +553,14 @@ function submitToCalendar () {
                         else if(type.textContent == 'other') {
                             a.innerHTML = `<a  id="other" class="legend"></a>`; }
                             
-               day.appendChild( a)
-             }
-             else { console.log('AH')}
-})
+               day.appendChild( a);
+               day.classList.toggle('crossout');
+               console.log(a)
+             } 
+            
+}) }
       
 }
 
-submitToCalendarBtn.addEventListener('click', submitToCalendar)
+submitToCalendarBtn.addEventListener('click', () =>  {submitToCalendar(dayOfWeek); submitToCalendar(dayOfWeekModal)})
+
