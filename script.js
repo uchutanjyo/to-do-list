@@ -297,7 +297,6 @@ submitMenuItem.addEventListener('click', confirmMenuItem)
 // Clear menu items list from step 2.
 function clearMenuItems() {
     list.innerHTML = "";
-    localStorage.clear();
     itemsArray = [];
 
 };
@@ -307,8 +306,8 @@ clearItemBtn.addEventListener('click', clearMenuItems);
 
 // Delete menu item, ingredients and localstorage for step 3.
 function deleteMenuItem() {
-
-    localStorage.clear();
+    localStorage.removeItem("menuitemlist");   
+    localStorage.removeItem("mylist");   
     confirmIngredients.textContent = '';
     name1.textContent = '';
     type.textContent = '';
@@ -352,6 +351,7 @@ for (let day = 1; day <= daysInThisMonth(); day++) {
 // large calendar
 const menuCalendarContainer = document.querySelector('.modal-container');
 const menuCalendar = document.querySelector('#modal');
+const deleteCalendarBtn = document.querySelector('.delete-calendar');
 const openCalendarBtn = document.querySelector('.open-calendar');
 const closeCalendarBtn = document.querySelector('.close-calendar');
 
@@ -371,7 +371,6 @@ for (let day = 1; day <= daysInThisMonth(); day++) {
     menuCalendar.insertAdjacentHTML("beforeend", `<div class="modal-week ${weekend ? "weekend" : ""}">
  <div class ="name">${name}</div> <div class="day">${day}</div></div>`);
 }
-
  
 // Show Large Calendar Modal
 function showModal() {
@@ -426,7 +425,6 @@ function submitToCalendar (daysOfMonth) {
    }
    
    else if (!isCrossout()) {
-    if (daysOfMonth === dayOfWeek) {createMenuObject() }
 
         daysOfMonth.forEach(day => { 
           
@@ -447,8 +445,10 @@ function submitToCalendar (daysOfMonth) {
              
 
                day.appendChild( a);
+               let daynum = day.children[1].textContent;
                day.classList.toggle('crossout');
-               
+               if (daysOfMonth === dayOfWeek) {createMenuObject(daynum, a) }
+
              }    
 }) 
 } }
@@ -471,8 +471,15 @@ const renameKey = (object, key, newKey) => {
   
   };
 
+
+  confirmedMenuItem.days = []
+
+
 // Create menu object for each calendar date, push to local storage
-function createMenuObject() {
+function createMenuObject(daynum, anchor) {
+   
+    confirmedMenuItem.days.push(daynum);
+    confirmedMenuItem.anchor = anchor
     confirmedMenuItem = Object.assign(confirmedMenuItem,  newItemsArray, menuItemsArray[0],)
     // Rename ingredient objects 'ingredient: [ingredient #]'
      for(let propt in confirmedMenuItem){
@@ -480,12 +487,18 @@ function createMenuObject() {
            confirmedMenuItem =  renameKey(confirmedMenuItem, `${propt}`, `ingredient: ${propt}`)
           ;}
     }
-        // confirmedMenuItem.legend = [];
-        // confirmedMenuItem.legend.push(anchor);
-        // confirmedMenuItem.days = [];
-        // confirmedMenuItem.days.push(daynum);
-        confirmedMenuItemArray.push(confirmedMenuItem)
+        const index = confirmedMenuItemArray.findIndex((e) => e.id === confirmedMenuItem.id);
+        if (index === -1) {
+            confirmedMenuItemArray.push(confirmedMenuItem);
+       
+
+        } else {
+            confirmedMenuItemArray[index] = confirmedMenuItem;
+ 
+        }
         console.log (confirmedMenuItem)
+ 
+        console.log (confirmedMenuItemArray)
 
         localStorage.setItem("confirmedmenu", JSON.stringify(confirmedMenuItemArray));
 
@@ -550,13 +563,22 @@ function getSaved3() {
     console.log(JSON.parse(localStorage.getItem("confirmedmenu")))
     if (JSON.parse(localStorage.getItem("confirmedmenu")) ) {
     confirmedMenuItemArray = JSON.parse(localStorage.getItem("confirmedmenu"));
+    console.log(confirmedMenuItemArray) 
     confirmedMenuItemArray.forEach(item => {
         dayOfWeek.forEach(day => { 
-            if (day.children[1].textContent == item.id) {
+
+            if (item.days == day.children[1].textContent) {
+            // let i = confirmedMenuItemArray.findIndex(i=> item.days == day.children[1].textContent) 
+            //     if (i ===-1) {
+            //         console.log(i);
+
+            //     }
             const a = document.createElement('a');
             a.classList.add('legend');
-            a.innerHTML = item.legend;
-            day.appendChild(a) }
+            a.innerHTML = item.anchor;
+            day.appendChild(a) ;
+            console.log('POa' ) 
+        }
         })
         })
     } else {
@@ -569,3 +591,10 @@ getSaved();
 getSaved1();
 getSaved2();
 getSaved3();
+
+
+function deleteCalendar() {
+    localStorage.clear();
+}
+
+deleteCalendarBtn.addEventListener('click', deleteCalendar)
