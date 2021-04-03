@@ -396,7 +396,6 @@ const submitToCalendarBtn = document.querySelector('#submit');
 function createBigCalendar() {
 dayOfWeek.forEach(week => {
 week.addEventListener('click', event => {
-    console.log(event.currentTarget)
     let crossed = event.currentTarget;
     // Day # of clicked element on small calendar
     let crossed3 = event.currentTarget.children[1].textContent
@@ -422,13 +421,13 @@ function isCrossout() {
 // Append to calendar, takes calendar days as paramter
 function submitToCalendar (daysOfMonth) {
    if (isCrossout()) {
-       console.log('sdfsdf')
     alert("Please select a calendar day.")
     
    }
    
    else if (!isCrossout()) {
-       console.log(daysOfMonth)
+    if (daysOfMonth === dayOfWeek) {createMenuObject() }
+
         daysOfMonth.forEach(day => { 
           
             if (day.classList.contains('crossout') ) {
@@ -448,16 +447,49 @@ function submitToCalendar (daysOfMonth) {
              
 
                day.appendChild( a);
-               let daynum = day.children[1].textContent;
-               createMenuObject(a.innerHTML, daynum)
                day.classList.toggle('crossout');
                
              }    
-}) } }
+}) 
+} }
 // Submit 'legend dots' to small and large calendars 
 submitToCalendarBtn.addEventListener('click', () =>  {submitToCalendar(dayOfWeek); submitToCalendar(dayOfWeekModal)})
 let confirmedMenuItem = {}; 
 
+
+
+
+// Change key name of ingredient objects
+const clone = (obj) => Object.assign({}, obj);
+const renameKey = (object, key, newKey) => {
+    const clonedObj = clone(object);
+    const targetKey = clonedObj[key];
+    delete clonedObj[key];
+  
+    clonedObj[newKey] = targetKey;
+    return clonedObj;
+  
+  };
+
+// Create menu object for each calendar date, push to local storage
+function createMenuObject() {
+    confirmedMenuItem = Object.assign(confirmedMenuItem,  newItemsArray, menuItemsArray[0],)
+    // Rename ingredient objects 'ingredient: [ingredient #]'
+     for(let propt in confirmedMenuItem){
+        if (!isNaN(propt)) {
+           confirmedMenuItem =  renameKey(confirmedMenuItem, `${propt}`, `ingredient: ${propt}`)
+          ;}
+    }
+        // confirmedMenuItem.legend = [];
+        // confirmedMenuItem.legend.push(anchor);
+        // confirmedMenuItem.days = [];
+        // confirmedMenuItem.days.push(daynum);
+        confirmedMenuItemArray.push(confirmedMenuItem)
+        console.log (confirmedMenuItem)
+
+        localStorage.setItem("confirmedmenu", JSON.stringify(confirmedMenuItemArray));
+
+}
 
 
 
@@ -485,13 +517,11 @@ function getSaved() {
 }
 
 // Get menu item name and details from local storage
-function getsaved1() {
+function getSaved1() {
     let saved1 = localStorage.getItem("menuitemlist");
     
     if (saved1) {
         menuItemsArray = JSON.parse(localStorage.getItem("menuitemlist"));
-        console.log(menuItemsArray);
-        console.log(JSON.parse(localStorage.getItem("menuitemlist")));
         name1.textContent = menuItemsArray[0].name;
         type.textContent = menuItemsArray[0].type;
         time.textContent = menuItemsArray[0].time;
@@ -502,13 +532,11 @@ function getsaved1() {
 }
 
 // Get 'legend' (dots indicating menu items on calendars) from local storage
-function getsaved2() {
+function getSaved2() {
     let saved1 = localStorage.getItem("menuitemlist");
     
     if (saved1) {
         menuItemsArray = JSON.parse(localStorage.getItem("menuitemlist"));
-        console.log(menuItemsArray);
-        console.log(JSON.parse(localStorage.getItem("menuitemlist")));
         name1.textContent = menuItemsArray[0].name;
         type.textContent = menuItemsArray[0].type;
         time.textContent = menuItemsArray[0].time;
@@ -518,41 +546,26 @@ function getsaved2() {
     }
 }
 
-// On load, get everything from local storage
-getSaved();
-getsaved1();
-getsaved2();
-
-
-// Change key name of object
-const clone = (obj) => Object.assign({}, obj);
-const renameKey = (object, key, newKey) => {
-    const clonedObj = clone(object);
-    const targetKey = clonedObj[key];
-    delete clonedObj[key];
-  
-    clonedObj[newKey] = targetKey;
-    return clonedObj;
-  
-  };
-
-// Create menu object for each calendar date, push to local storage
-function createMenuObject(anchor, daynum) {
-    
-    confirmedMenuItem = Object.assign(confirmedMenuItem,  newItemsArray, menuItemsArray[0],)
-    // Rename ingredient objects 'ingredient: [ingredient #]'
-     for(let propt in confirmedMenuItem){
-        if (!isNaN(propt)) {
-           confirmedMenuItem =  renameKey(confirmedMenuItem, `${propt}`, `ingredient: ${propt}`)
-          ;}
-    }
-        // confirmedMenuItem.id ===
-        confirmedMenuItem.legend = [];
-        confirmedMenuItem.legend.push(anchor);
-        confirmedMenuItem.id = daynum;
-        console.log (confirmedMenuItem)
-
-        localStorage.setItem("confirmedmenu", JSON.stringify(confirmedMenuItem));
+function getSaved3() {
+    console.log(JSON.parse(localStorage.getItem("confirmedmenu")))
+    if (JSON.parse(localStorage.getItem("confirmedmenu")) ) {
+    confirmedMenuItemArray = JSON.parse(localStorage.getItem("confirmedmenu"));
+    confirmedMenuItemArray.forEach(item => {
+        dayOfWeek.forEach(day => { 
+            if (day.children[1].textContent == item.id) {
+            const a = document.createElement('a');
+            a.classList.add('legend');
+            a.innerHTML = item.legend;
+            day.appendChild(a) }
+        })
+        })
+    } else {
+         console.log('POO' ) 
+        }
 
 }
-
+// On load, get everything from local storage
+getSaved();
+getSaved1();
+getSaved2();
+getSaved3();
