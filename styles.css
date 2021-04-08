@@ -91,7 +91,7 @@ body {
 
     
 .layer {
-    background-color: rgba(67, 80, 181, 0.5);
+    background-color: rgba(86, 88, 104, 0.5);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -143,7 +143,7 @@ margin-top: 0px
 .left-and-right {
     display: flex;
     align-items: left;
-    background-color: rgba(67, 80, 181, 0.7);
+    background-color: rgba(86, 88, 104, 0.5);
     border-radius: 5%;
 
    
@@ -159,7 +159,7 @@ margin-top: 0px
    
  
     margin-top: 5px;
-    background-color: rgba(67, 80, 181, 0.7);
+    background-color: rgba(86, 88, 104, 0.5);
 
 }
 
