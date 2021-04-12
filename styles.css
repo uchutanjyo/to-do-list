@@ -75,9 +75,24 @@ body {
     border: 1px dotted;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     height: 150px;
+    max-width: 150px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto
+  }
+
+  .modal-week .day {
     display: flex;
     flex-direction: column;
   }
+
+      /* large calendar list items */
+
+      .modal-week li {
+        color: black;
+        margin-left: 10px;
+        padding: 5px;
+    }
   
   @keyframes modalopen {
   from {
@@ -668,6 +683,8 @@ margin-right: 10px
         background-color: rgb(153, 149, 153);
 
     }
+
+
  .crossout {
     background-color: rgba(255,255,255,0.9);
     color: black;

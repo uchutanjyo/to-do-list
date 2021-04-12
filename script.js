@@ -418,7 +418,7 @@ week.addEventListener('click', event => {
     let crossed3 = event.currentTarget.children[1].textContent
     // Makes  array of all day #s from large calendar; finds day# with same # as clicked element on small calendar
     let crossed2 = Array.from(document.querySelectorAll('.modal-week .day')).filter(day => day.textContent == crossed3)[0];
-    crossed2.parentElement.classList.toggle('crossout')
+    // crossed2.parentElement.classList.toggle('crossout')
 
 crossed.classList.toggle('crossout');
 
@@ -651,9 +651,17 @@ function getSaved3() {
 
                       if (p.childNodes[0].textContent == dd.children[1].textContent) {
                         const a = document.createElement('a');
+                       
                         a.classList.add('legend');
                         a.innerHTML = i.legend
-                      p.appendChild(a)}
+                      p.appendChild(a)
+                    
+                      for (let i of item.menu) {
+                      const li = document.createElement('li');
+                      li.textContent = `${i.name} for ${i.type}`
+              console.log(i.name)
+                      p.appendChild(li);
+                    return}  }
                   })
                 // console.log(Array.from(document.querySelectorAll('.modal-week .day')))
             }) }
@@ -665,7 +673,9 @@ function getSaved3() {
           }) }}
 
 
-  
+  function getSaved4() {
+
+  }
 
 
 // On load, get everything from local storage
