@@ -277,12 +277,12 @@ function confirmMenuItem() {
         type.textContent = menuItemsArray[0].type;
         time.textContent = menuItemsArray[0].time;
 
-        pendingItem.textContent = '';
+       
+    }
+   pendingItem.textContent = '';
         itemType.textContent = '';
         itemTime.textContent = '';
         editItemButton.classList.add('hidden');
-    }
-  
     // Add menu item + ingredients to local storage (to be retrieved step 3.). 
     localStorage.setItem("mylist", JSON.stringify(newItemsArray));
     localStorage.setItem("menuitemlist", JSON.stringify(menuItemsArray));
@@ -471,7 +471,7 @@ const renameKey = (object, key, newKey) => {
   
   };
 
-  let days = [];
+  let confirmedMenuCalendar = [];
 
 // Create menu object for each calendar date, push to local storage
 function createMenuObject(daynum, anchor) {
@@ -486,34 +486,34 @@ function createMenuObject(daynum, anchor) {
         // ----------------------------------------------
         confirmedMenuItem.legend = anchor.innerHTML;
         // Find days which are already elements in days array
-        let existingDay = days.filter(i => {console.log(i.day == daynum);
+        let existingDay = confirmedMenuCalendar.filter(i => {console.log(i.day == daynum);
             return i.day == daynum })
-            // If there is no existing day in days array for the selected calendar day
+            // If there is no existing day in confirmedMenuCalendar array for the selected calendar day
                     if (existingDay == '') {
             console.log((existingDay[0]) )
             // Create day object, push
         let obj= {day: `${daynum}`, menu: []}
         // Push menu item to 'menu' for selected calendar day
         obj.menu.push(confirmedMenuItem);
-        // Push 'day' to 'days' array
-        days.push(obj) 
+        // Push 'day' to 'confirmedMenuCalendar' array
+        confirmedMenuCalendar.push(obj) 
               console.log(existingDay)
-                console.log(days)
+                console.log(confirmedMenuCalendar)
                     } 
                     // If 'day' object already exists for calendar day, just push menu item to existing day
                      else {
                         existingDay[0].menu.push(confirmedMenuItem)
                         console.log((existingDay) )
-                        console.log(days)
+                        console.log(confirmedMenuCalendar)
 
 
    
                  }  
                        
 
-    //         // if (days[i].menu[0].id == confirmedMenuItem.id) { ***
+    //         // if (confirmedMenuCalendar[i].menu[0].id == confirmedMenuItem.id) { ***
 
-        localStorage.setItem("confirmedmenu", JSON.stringify(confirmedMenuItemArray));
+        localStorage.setItem("confirmedmenu", JSON.stringify(confirmedMenuCalendar));
 
 }
 
@@ -564,59 +564,81 @@ function getSaved2() {
     }
 }
 
-// // Get 'legend' (dots indicating menu items on calendars) from local storage
-// function getSaved3() {
-//     console.log(JSON.parse(localStorage.getItem("confirmedmenu")))
-//     if (JSON.parse(localStorage.getItem("confirmedmenu")) ) {
-//     confirmedMenuItemArray = JSON.parse(localStorage.getItem("confirmedmenu"));
-//     confirmedMenuItemArray.forEach(item => {
-//         dayOfWeek.forEach(day => { 
+function checkForDuplicates(array, arrayParent) {
+    let valuesAlreadySeen = []
+  console.log(confirmedMenuCalendar)
+    for (let i = 0; i < array.length; i++) {
+      let value = array[i];
+      if (valuesAlreadySeen.indexOf(value) !== -1) {
+ return true
+      }
+      valuesAlreadySeen.push(value);
+      valuesAlreadySeen.forEach(i=> {
+          confirmedMenuCalendar.forEach(d=> {
+             dayOfWeek.forEach(dd => {
 
-//             let i = item.days.findIndex(i=> day.children[1].textContent === i)
-//             if (i > -1) {
-//             const a = document.createElement('a');
-//             a.classList.add('legend');
-//             a.innerHTML = item.legend;
-//             day.appendChild(a) ; }
-//         })
-//         })
-//     } else {
-//          console.log('POO' ) 
-//         }
+              if (d.day == dd.children[1].textContent) {
+                //   console.log(d.day, dd.children[1].textContent)
+                       const a = document.createElement('a');
+                a.classList.add('legend');
+                a.innerHTML = i.legend
 
-// }
+              dd.appendChild(a)
+              
+            // dayOfWeek.forEach(dd => {
+            //     console.log('YEAH')
+            //     const a = document.createElement('a');
+            //     a.classList.add('legend');
+            //     dd.appendChild(a)
+            // })
+             }
+             })
+          
+        })
+      })
+      console.log(valuesAlreadySeen);
+    }
+    return false
+  }
+  
+// Get 'legend' (dots indicating menu items on calendars) from local storage
+function getSaved3() {
+    console.log(JSON.parse(localStorage.getItem("confirmedmenu")))
+    if (JSON.parse(localStorage.getItem("confirmedmenu")) ) {
+    confirmedMenuCalendar = JSON.parse(localStorage.getItem("confirmedmenu"));
+   
 
-function findDuplicate(array) {
-    let object = [];
-   let result = [];
+    confirmedMenuCalendar.forEach(item => {
+             dayOfWeek.forEach(dd => {
+              if  (item.day == dd.children[1].textContent) {
+                  item.menu.forEach(i=> {
+                console.log('YEAH')
+                const a = document.createElement('a');
+                a.classList.add('legend');
+                a.innerHTML = i.legend
+                dd.appendChild(a)}) }
+            })
+        // console.log(item.menu)
+        // console.log(checkForDuplicates(item.menu, item.day))
+        
 
-    array.forEach(function (item) {
-      if(!object[item])
-          object[item] = 0;
-        object[item] += 1;
-    })
+   
+        
+               
+          }) }}
+
+
   
 
-    for (let  prop in object) {
-       if(object[prop] >= 2) {
-           object.forEach(i=> {
-            result.push(prop);
-       })}
-            result.push(prop);
-        
-        
-       
-    }
 
-    return result;
-}
 // On load, get everything from local storage
 getSaved();
 getSaved1();
 getSaved2();
-// getSaved3();
+getSaved3();
 
 
+// Delete all menu items from calendar/local storage
 function deleteCalendar() {
     localStorage.clear();
 }
