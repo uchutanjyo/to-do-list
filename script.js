@@ -301,6 +301,7 @@ function confirmMenuItem() {
         itemTime.textContent = '';
         editItemButton.classList.add('hidden');
 
+        console.log(menuItemsArray)
     // Add menu item + ingredients to local storage (to be retrieved step 3.). 
     localStorage.setItem("mylist", JSON.stringify(newItemsArray));
     localStorage.setItem("menuitemlist", JSON.stringify(menuItemsArray));
@@ -470,8 +471,13 @@ function submitToCalendar (daysOfMonth) {
 
                day.appendChild( a);
                let daynum = day.children[1].textContent;
+               console.log(daynum)
                day.classList.toggle('crossout');
-               if (daysOfMonth === dayOfWeek) {createMenuObject(daynum, a) }
+               
+
+               if (daysOfMonth === dayOfWeek) {
+                console.log(daysOfMonth, dayOfWeek)   
+                createMenuObject(daynum, a) }
 
              }    
 }) 
@@ -499,9 +505,13 @@ const renameKey = (object, key, newKey) => {
 
 // Create menu object for each calendar date, push to local storage
 function createMenuObject(daynum, anchor) {
+    if (JSON.parse(localStorage.getItem("confirmedmenu")) ) {
+        confirmedMenuCalendar = JSON.parse(localStorage.getItem("confirmedmenu")); }
     // create the object and assign proeprties from menu item
+    console.log(menuItemsArray[0])
     confirmedMenuItem = Object.assign(confirmedMenuItem,  newItemsArray, menuItemsArray[0],)
     // Rename ingredient objects 'ingredient: [ingredient #]'
+    console.log(confirmedMenuItem)
      for(let propt in confirmedMenuItem){
         if (!isNaN(propt)) {
            confirmedMenuItem =  renameKey(confirmedMenuItem, `${propt}`, `ingredient: ${propt}`)
@@ -514,7 +524,7 @@ function createMenuObject(daynum, anchor) {
             return i.day == daynum })
             // If there is no existing day in confirmedMenuCalendar array for the selected calendar day
                     if (existingDay == '') {
-            console.log((existingDay[0]) )
+            console.log(existingDay == '' )
             // Create day object, push
         let obj= {day: `${daynum}`, menu: []}
         // Push menu item to 'menu' for selected calendar day
@@ -523,12 +533,16 @@ function createMenuObject(daynum, anchor) {
         confirmedMenuCalendar.push(obj) 
               console.log(existingDay)
                 console.log(confirmedMenuCalendar)
+                localStorage.setItem("confirmedmenu", JSON.stringify(confirmedMenuCalendar));
+
                     } 
                     // If 'day' object already exists for calendar day, just push menu item to existing day
                      else {
-                        existingDay[0].menu.push(confirmedMenuItem)
-                        console.log((existingDay) )
+                        existingDay[0].menu.push(confirmedMenuItem);
+
+                        console.log((existingDay[0].menu) )
                         console.log(confirmedMenuCalendar)
+                        localStorage.setItem("confirmedmenu", JSON.stringify(confirmedMenuCalendar));
 
 
    
@@ -537,7 +551,6 @@ function createMenuObject(daynum, anchor) {
 
     //         // if (confirmedMenuCalendar[i].menu[0].id == confirmedMenuItem.id) { ***
 
-        localStorage.setItem("confirmedmenu", JSON.stringify(confirmedMenuCalendar));
 
 }
 function resetFields () {
@@ -634,7 +647,7 @@ function getSaved3() {
     console.log(JSON.parse(localStorage.getItem("confirmedmenu")))
     if (JSON.parse(localStorage.getItem("confirmedmenu")) ) {
     confirmedMenuCalendar = JSON.parse(localStorage.getItem("confirmedmenu"));
-   
+   console.log(confirmedMenuCalendar)
 
     confirmedMenuCalendar.forEach(item => {
              dayOfWeek.forEach(dd => {
@@ -659,7 +672,6 @@ function getSaved3() {
                       for (let i of item.menu) {
                       const li = document.createElement('li');
                       li.textContent = `${i.name} for ${i.type}`
-              console.log(i.name)
                       p.appendChild(li);
                     return}  }
                   })
