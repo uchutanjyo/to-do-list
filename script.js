@@ -189,6 +189,11 @@ function renderIngredient(item) {
 
 // Create ingredient object/appends ingredients to step 2.
 function createIngredientObject() {
+    if (name1.textContent) {
+        alert ('Please delete menu item in step 3.');
+        return
+    }
+    
     if (itemInput.value) {
         let item = {
             text: itemInput.value,
@@ -207,8 +212,8 @@ function createIngredientObject() {
         // push ingredients list to its own array
         itemsArray.push(item);     
         // Renders ingredients to step 2.
-        renderIngredient(item);
-
+        renderIngredient(item); 
+     
     } else {
         alert("If your ingredient is ' ', there's no need to add it to this list.")
     }
@@ -217,7 +222,7 @@ function createIngredientObject() {
 // Make step 3. pending menu item
 function confirmMenuItem() {
     //Alert when trying to submit ingredients to step 3. without a dish name
-    if (pendingItem.textContent === '') {
+    if (pendingItem.textContent === '' && name1.textContent === '') {
         alert("Please enter a dish name.")
         return
     }
@@ -230,6 +235,15 @@ function confirmMenuItem() {
             } else if (item.qty === 'N/A') {
                 item.qty = ''
             }
+            if (name1.textContent && name1.textContent != item.text) {
+            
+                newItemsArray = [];   
+               console.log()
+                confirmIngredients.textContent = '';
+            }
+            else if(name1.textContent && name1.textContent == item.text) {
+
+            }
             ingredient.textContent = `${item.text} - ${item.qty} - ${item.amt}`;
             confirmIngredients.appendChild(ingredient);
             // Reset step 2. ingredient list
@@ -237,6 +251,9 @@ function confirmMenuItem() {
             // Push to array to be used in local storage
             newItemsArray.push(item)
         };
+        
+     
+
 
         // Push menu item details to step 3.
         if (pendingItem.textContent === '' && name1.textContent && list.textContent) {
@@ -283,6 +300,7 @@ function confirmMenuItem() {
         itemType.textContent = '';
         itemTime.textContent = '';
         editItemButton.classList.add('hidden');
+
     // Add menu item + ingredients to local storage (to be retrieved step 3.). 
     localStorage.setItem("mylist", JSON.stringify(newItemsArray));
     localStorage.setItem("menuitemlist", JSON.stringify(menuItemsArray));
@@ -419,9 +437,15 @@ function isCrossout() {
 
 // Append to calendar, takes calendar days as paramter
 function submitToCalendar (daysOfMonth) {
+
+    if (!name1.textContent) {
+        alert('Please complete step 1 and 2.');
+        return
+    }
+
    if (isCrossout()) {
     alert("Please select a calendar day.")
-    
+    return
    }
    
    else if (!isCrossout()) {
@@ -516,7 +540,11 @@ function createMenuObject(daynum, anchor) {
         localStorage.setItem("confirmedmenu", JSON.stringify(confirmedMenuCalendar));
 
 }
-
+function resetFields () {
+    itemInput.value  = '';
+      qtyInput.value  = '';
+       amtInput.value  = '';
+}
 // Get everything from local storage
 // Get ingredient list from local storage
 function getSaved() {
@@ -532,7 +560,7 @@ function getSaved() {
             }
             ingredient.textContent = `${item.text} - ${item.qty} - ${item.amt}`;
             confirmIngredients.appendChild(ingredient); }
-    
+            
     } else {
         console.log('Nothing saved in local storage for step 3.')
     }
@@ -551,55 +579,55 @@ function getSaved1() {
     }
 }
 
-function getSaved2() {
-    if (localStorage.getItem("menuitemlist"))
-     {
-        menuItemsArray = JSON.parse(localStorage.getItem("menuitemlist"));
-        name1.textContent = menuItemsArray[0].name;
-        type.textContent = menuItemsArray[0].type;
-        time.textContent = menuItemsArray[0].time;
-        as.classList.remove('hidden');
-        at.classList.remove('hidden');
+// function getSaved2() {
+//     if (localStorage.getItem("menuitemlist"))
+//      {
+//         menuItemsArray = JSON.parse(localStorage.getItem("menuitemlist"));
+//         name1.textContent = menuItemsArray[0].name;
+//         type.textContent = menuItemsArray[0].type;
+//         time.textContent = menuItemsArray[0].time;
+//         as.classList.remove('hidden');
+//         at.classList.remove('hidden');
         
-    }
-}
+//     }
+// }
 
-function checkForDuplicates(array, arrayParent) {
-    let valuesAlreadySeen = []
-  console.log(confirmedMenuCalendar)
-    for (let i = 0; i < array.length; i++) {
-      let value = array[i];
-      if (valuesAlreadySeen.indexOf(value) !== -1) {
- return true
-      }
-      valuesAlreadySeen.push(value);
-      valuesAlreadySeen.forEach(i=> {
-          confirmedMenuCalendar.forEach(d=> {
-             dayOfWeek.forEach(dd => {
+// function checkForDuplicates(array, arrayParent) {
+//     let valuesAlreadySeen = []
+//   console.log(confirmedMenuCalendar)
+//     for (let i = 0; i < array.length; i++) {
+//       let value = array[i];
+//       if (valuesAlreadySeen.indexOf(value) !== -1) {
+//  return true
+//       }
+//       valuesAlreadySeen.push(value);
+//       valuesAlreadySeen.forEach(i=> {
+//           confirmedMenuCalendar.forEach(d=> {
+//              dayOfWeek.forEach(dd => {
 
-              if (d.day == dd.children[1].textContent) {
-                //   console.log(d.day, dd.children[1].textContent)
-                       const a = document.createElement('a');
-                a.classList.add('legend');
-                a.innerHTML = i.legend
+//               if (d.day == dd.children[1].textContent) {
+//                 //   console.log(d.day, dd.children[1].textContent)
+//                        const a = document.createElement('a');
+//                 a.classList.add('legend');
+//                 a.innerHTML = i.legend
 
-              dd.appendChild(a)
+//               dd.appendChild(a)
               
-            // dayOfWeek.forEach(dd => {
-            //     console.log('YEAH')
-            //     const a = document.createElement('a');
-            //     a.classList.add('legend');
-            //     dd.appendChild(a)
-            // })
-             }
-             })
+//             // dayOfWeek.forEach(dd => {
+//             //     console.log('YEAH')
+//             //     const a = document.createElement('a');
+//             //     a.classList.add('legend');
+//             //     dd.appendChild(a)
+//             // })
+//              }
+//              })
           
-        })
-      })
-      console.log(valuesAlreadySeen);
-    }
-    return false
-  }
+//         })
+//       })
+//       console.log(valuesAlreadySeen);
+//     }
+//     return false
+//   }
   
 // Get 'legend' (dots indicating menu items on calendars) from local storage
 function getSaved3() {
@@ -612,15 +640,24 @@ function getSaved3() {
              dayOfWeek.forEach(dd => {
               if  (item.day == dd.children[1].textContent) {
                   item.menu.forEach(i=> {
-                console.log('YEAH')
                 const a = document.createElement('a');
                 a.classList.add('legend');
                 a.innerHTML = i.legend
-                dd.appendChild(a)}) }
+                dd.appendChild(a);
+                let poo = Array.from(document.querySelectorAll('.modal-week .day'))
+
+                  poo.forEach(p=> {
+                    // console.log(p.childNodes[0].textContent, dd.children[1].textContent)
+
+                      if (p.childNodes[0].textContent == dd.children[1].textContent) {
+                        const a = document.createElement('a');
+                        a.classList.add('legend');
+                        a.innerHTML = i.legend
+                      p.appendChild(a)}
+                  })
+                // console.log(Array.from(document.querySelectorAll('.modal-week .day')))
+            }) }
             })
-        // console.log(item.menu)
-        // console.log(checkForDuplicates(item.menu, item.day))
-        
 
    
         
@@ -634,9 +671,9 @@ function getSaved3() {
 // On load, get everything from local storage
 getSaved();
 getSaved1();
-getSaved2();
+// getSaved2();
 getSaved3();
-
+resetFields ()
 
 // Delete all menu items from calendar/local storage
 function deleteCalendar() {
