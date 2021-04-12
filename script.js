@@ -657,9 +657,9 @@ function getSaved3() {
                 a.classList.add('legend');
                 a.innerHTML = i.legend
                 dd.appendChild(a);
-                let poo = Array.from(document.querySelectorAll('.modal-week .day'))
+                let largeCalendarArray = Array.from(document.querySelectorAll('.modal-week .day'))
 
-                  poo.forEach(p=> {
+                  largeCalendarArray.forEach(p=> {
                     // console.log(p.childNodes[0].textContent, dd.children[1].textContent)
 
                       if (p.childNodes[0].textContent == dd.children[1].textContent) {
@@ -668,13 +668,16 @@ function getSaved3() {
                         a.classList.add('legend');
                         a.innerHTML = i.legend
                       p.appendChild(a)
-                    
-                      for (let i of item.menu) {
                       const li = document.createElement('li');
-                      li.textContent = `${i.name} for ${i.type}`
+                      li.textContent =`${i.name} for ${i.type}`
                       p.appendChild(li);
-                    return}  }
-                  })
+                    //   for (let i of item.menu) {
+                    //       console.log(i)
+                    //   const li = document.createElement('li');
+                    //   li.textContent = `${i.name} for ${i.type}`
+                    //   p.appendChild(li);
+                    // return}  
+                    }  })
                 // console.log(Array.from(document.querySelectorAll('.modal-week .day')))
             }) }
             })
