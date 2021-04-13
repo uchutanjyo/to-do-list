@@ -307,11 +307,8 @@ function confirmMenuItem() {
     localStorage.setItem("menuitemlist", JSON.stringify(menuItemsArray));
     // Set ingredients array to empty
     itemsArray = []
-
 } }
-
 submitMenuItem.addEventListener('click', confirmMenuItem)
-
 
 // Clear menu items list from step 2.
 function clearMenuItems() {
@@ -467,27 +464,37 @@ function submitToCalendar (daysOfMonth) {
                         a.innerHTML = `<a  id="snack" class="legend"></a>`; }
                         else if(type.textContent == 'other') {
                             a.innerHTML = `<a  id="other" class="legend"></a>`; }
-             
-
-               day.appendChild( a);
+                            day.appendChild( a);
                let daynum = day.children[1].textContent;
-               console.log(daynum)
-               day.classList.toggle('crossout');
-               
-
+                    
                if (daysOfMonth === dayOfWeek) {
                 console.log(daysOfMonth, dayOfWeek)   
                 createMenuObject(daynum, a) }
 
-             }    
-}) 
+                let largeCalendarArray = Array.from(document.querySelectorAll('.modal-week .day'))
+       
+                largeCalendarArray.forEach(p=> {
+                    console.log(p.childNodes[0].textContent)
+                    if (daynum == p.childNodes[0].textContent) {
+                 const li = document.createElement('li');
+                              confirmedMenuCalendar.forEach(item => {
+                                 if  (item.day == day.children[1].textContent) {
+                                     item.menu.forEach(i=> {
+                                        li.textContent = `${i.name} for ${i.type}` })}})
+                              p.appendChild(a.cloneNode(true));
+                              p.appendChild(li); 
+                             }
+                })
+                day.classList.toggle('crossout');
+
+                    }   
+             }) 
 } }
 // Submit 'legend dots' to small and large calendars 
-submitToCalendarBtn.addEventListener('click', () =>  {submitToCalendar(dayOfWeek); submitToCalendar(dayOfWeekModal)})
+submitToCalendarBtn.addEventListener('click', () =>  {submitToCalendar(dayOfWeek);})
+submitToCalendarBtn.addEventListener('click', () =>  {submitToCalendar(dayOfWeekModal)
+    ;})
 let confirmedMenuItem = {}; 
-
-
-
 
 // Change key name of ingredient objects
 const clone = (obj) => Object.assign({}, obj);
@@ -500,7 +507,7 @@ const renameKey = (object, key, newKey) => {
     return clonedObj;
   
   };
-
+ 
   let confirmedMenuCalendar = [];
 
 // Create menu object for each calendar date, push to local storage
@@ -531,8 +538,8 @@ function createMenuObject(daynum, anchor) {
         obj.menu.push(confirmedMenuItem);
         // Push 'day' to 'confirmedMenuCalendar' array
         confirmedMenuCalendar.push(obj) 
-              console.log(existingDay)
                 console.log(confirmedMenuCalendar)
+                
                 localStorage.setItem("confirmedmenu", JSON.stringify(confirmedMenuCalendar));
 
                     } 
@@ -544,13 +551,7 @@ function createMenuObject(daynum, anchor) {
                         console.log(confirmedMenuCalendar)
                         localStorage.setItem("confirmedmenu", JSON.stringify(confirmedMenuCalendar));
 
-
-   
                  }  
-                       
-
-    //         // if (confirmedMenuCalendar[i].menu[0].id == confirmedMenuItem.id) { ***
-
 
 }
 function resetFields () {
@@ -592,58 +593,8 @@ function getSaved1() {
     }
 }
 
-// function getSaved2() {
-//     if (localStorage.getItem("menuitemlist"))
-//      {
-//         menuItemsArray = JSON.parse(localStorage.getItem("menuitemlist"));
-//         name1.textContent = menuItemsArray[0].name;
-//         type.textContent = menuItemsArray[0].type;
-//         time.textContent = menuItemsArray[0].time;
-//         as.classList.remove('hidden');
-//         at.classList.remove('hidden');
-        
-//     }
-// }
-
-// function checkForDuplicates(array, arrayParent) {
-//     let valuesAlreadySeen = []
-//   console.log(confirmedMenuCalendar)
-//     for (let i = 0; i < array.length; i++) {
-//       let value = array[i];
-//       if (valuesAlreadySeen.indexOf(value) !== -1) {
-//  return true
-//       }
-//       valuesAlreadySeen.push(value);
-//       valuesAlreadySeen.forEach(i=> {
-//           confirmedMenuCalendar.forEach(d=> {
-//              dayOfWeek.forEach(dd => {
-
-//               if (d.day == dd.children[1].textContent) {
-//                 //   console.log(d.day, dd.children[1].textContent)
-//                        const a = document.createElement('a');
-//                 a.classList.add('legend');
-//                 a.innerHTML = i.legend
-
-//               dd.appendChild(a)
-              
-//             // dayOfWeek.forEach(dd => {
-//             //     console.log('YEAH')
-//             //     const a = document.createElement('a');
-//             //     a.classList.add('legend');
-//             //     dd.appendChild(a)
-//             // })
-//              }
-//              })
-          
-//         })
-//       })
-//       console.log(valuesAlreadySeen);
-//     }
-//     return false
-//   }
-  
 // Get 'legend' (dots indicating menu items on calendars) from local storage
-function getSaved3() {
+function getSaved2() {
     console.log(JSON.parse(localStorage.getItem("confirmedmenu")))
     if (JSON.parse(localStorage.getItem("confirmedmenu")) ) {
     confirmedMenuCalendar = JSON.parse(localStorage.getItem("confirmedmenu"));
@@ -671,33 +622,20 @@ function getSaved3() {
                       const li = document.createElement('li');
                       li.textContent =`${i.name} for ${i.type}`
                       p.appendChild(li);
-                    //   for (let i of item.menu) {
-                    //       console.log(i)
-                    //   const li = document.createElement('li');
-                    //   li.textContent = `${i.name} for ${i.type}`
-                    //   p.appendChild(li);
-                    // return}  
+            
                     }  })
-                // console.log(Array.from(document.querySelectorAll('.modal-week .day')))
             }) }
             })
-
-   
-        
-               
           }) }}
-
 
   function getSaved4() {
 
   }
 
-
 // On load, get everything from local storage
 getSaved();
 getSaved1();
-// getSaved2();
-getSaved3();
+getSaved2();
 resetFields ()
 
 // Delete all menu items from calendar/local storage
