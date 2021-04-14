@@ -554,6 +554,27 @@ function createMenuObject(daynum, anchor) {
                  }  
 
 }
+
+// Create modal when day clicked on large calendar
+function createDayModal() {
+    dayOfWeekModal.forEach(week => {
+        week.addEventListener('click', event => {
+            // let crossed = event.currentTarget;
+            // // Day # of clicked element on small calendar
+            // let crossed3 = event.currentTarget.children[1].textContent
+            console.log(week.children[1].textContent); return
+        }) })
+let dayModalContainer = document.createElement('div');
+let dayModalText = document.createElement('div');
+dayModalText.classList.add('day-modal')
+dayModalContainer.appendChild(dayModalText)
+dayModalContainer.classList.add('day-modal-container')
+menuCalendarContainer.appendChild(dayModalContainer)
+}
+
+dayOfWeekModal.forEach(week => {
+    week.addEventListener('click', createDayModal) })
+
 function resetFields () {
     itemInput.value  = '';
       qtyInput.value  = '';
