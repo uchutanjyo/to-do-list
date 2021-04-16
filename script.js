@@ -153,7 +153,6 @@ function renderIngredient(item) {
     deleteBtn.addEventListener('click', deleteItem);
 
     // Mark item as 'select' *** this function still has no use in this project ***
-    // ** will probably use for  saving 'legend' info in localstorage. ***
     function selectItem() {
         let saved = localStorage.getItem("mylist");
         if (saved) {
@@ -557,21 +556,40 @@ function createMenuObject(daynum, anchor) {
 
 // Create modal when day clicked on large calendar
 function createDayModal() {
-    dayOfWeekModal.forEach(week => {
-        week.addEventListener('click', event => {
-            // let crossed = event.currentTarget;
-            // // Day # of clicked element on small calendar
-            // let crossed3 = event.currentTarget.children[1].textContent
-            console.log(week.children[1].textContent); return
-        }) })
+
+      
 let dayModalContainer = document.createElement('div');
 let dayModalText = document.createElement('div');
-dayModalText.classList.add('day-modal')
-dayModalContainer.appendChild(dayModalText)
-dayModalContainer.classList.add('day-modal-container')
-menuCalendarContainer.appendChild(dayModalContainer)
-}
 
+let largeCalendarArray = Array.from(document.querySelectorAll('.modal-week .day'))
+
+dayOfWeekModal.forEach(week => {
+    week.addEventListener('click', event => {
+        let crossed = event.currentTarget.children[1].textContent;
+        // Makes  array of all day #s from large calendar; finds day# with same # as clicked element on small calendar
+       function okok(i) {
+        // console.log(`${crossed.charAt(0)}${crossed.charAt(1)}`)
+        console.log(i.day)
+        if (isNaN(crossed.charAt(1)) && i.day == `${crossed.charAt(0)}${crossed.charAt(1)}`) {
+            return i.day == `${crossed.charAt(0)}${crossed.charAt(1)}`
+        }
+        else {
+     return i.day == crossed.charAt(0)}
+
+        }
+        console.log(confirmedMenuCalendar.filter(okok)); 
+         
+          let poo =  confirmedMenuCalendar.filter(okok)
+          poo.forEach( p=> {
+            p.menu.forEach(o=> {
+                console.log(o)
+          })
+       
+
+        })
+            
+    })}) 
+}
 dayOfWeekModal.forEach(week => {
     week.addEventListener('click', createDayModal) })
 

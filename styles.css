@@ -87,6 +87,12 @@ body {
 
   }
 
+  .modal-week .items {
+    display: flex;
+    flex-direction: column;
+
+  }
+
   /* Day Modal */
 
   .day-modal-container {
