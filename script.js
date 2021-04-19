@@ -588,13 +588,19 @@ console.log(confirmedMenuItem)
 
                  }  
 }
-let closeDayModalBtn = document.createElement('button');
+
 
 // Create modal when day clicked on large calendar
 function createDayModal() {
+if (menuCalendar.childNodes[30])
+
+{ console.log('ar')
+    menuCalendar.childNodes[30].remove}
+
     let ooo = []
       
 let dayModalContainer = document.createElement('div');
+
 let dayModalText = document.createElement('div');
 
 let largeCalendarArray = Array.from(document.querySelectorAll('.modal-week .day'))
@@ -642,26 +648,37 @@ dayOfWeekModal.forEach(week => {
                 dayModalText.appendChild(oo)
                
           })
-          closeDayModalBtn.textContent= 'Close';
+          let closeDayModalBtn = document.createElement('button');
+          closeDayModalBtn.setAttribute('id', 'iku');
+
+        // closeDayModalBtn.addEventListener('click', () => console.log(menuCalendar.childNodes)
+        // // menuCalendar.removeChild(menuCalendar.childNodes[30])
+        //     )
             
-// closeDayModalBtn.addEventListener('click', deleteElementAndThisChildNodes(parentId)
-
-
-function deleteElementAndThisChildNodes(parentId) {
-    document.getElementById(parentId).remove()
-  }
+          closeDayModalBtn.textContent= 'Close';
 
           dayModalText.appendChild(closeDayModalBtn)
           dayModalText.classList.add('day-modal')
           dayModalContainer.appendChild(dayModalText.cloneNode(true))
           dayModalContainer.classList.add('day-modal-container')
           menuCalendar.appendChild(dayModalContainer);
-        
+        return
         })
       
     })}) 
     
 }
+
+document.addEventListener('click',function(e){
+    if(e.target && e.target.id== 'iku'){
+          console.log('iku');
+          
+          menuCalendar.childNodes[30].remove()
+          return
+          
+     }
+ });
+
 
 dayOfWeekModal.forEach(week => {
     week.addEventListener('click', createDayModal) })
