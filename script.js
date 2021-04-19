@@ -596,8 +596,6 @@ if (menuCalendar.childNodes[30])
 
 { console.log('ar')
     menuCalendar.childNodes[30].remove}
-
-    let ooo = []
       
 let dayModalContainer = document.createElement('div');
 
@@ -609,9 +607,6 @@ dayOfWeekModal.forEach(week => {
     week.addEventListener('click', event => {
         let crossed = event.currentTarget.children[1].textContent;
        function okok(i) {
-        // console.log(`${crossed.charAt(0)}${crossed.charAt(1)}`)
-        console.log(i.day)
-        console.log(`${crossed.charAt(0)}${crossed.charAt(1)}`)
 
         if (crossed.charAt(1) && i.day == `${crossed.charAt(0)}${crossed.charAt(1)}`) {
             return i.day == `${crossed.charAt(0)}${crossed.charAt(1)}`
@@ -623,18 +618,19 @@ dayOfWeekModal.forEach(week => {
         let dayModalTitle = document.createElement('h1');
         dayModalTitle.textContent = `Menu for ${date}:`
         dayModalText.appendChild(dayModalTitle)
-          let modalObject =  confirmedMenuCalendar.filter(okok)
-        
-              
-              modalObject.forEach( p=> {
-                console.log(p.menu)
+        let modalObject = []
 
-                p.menu.forEach(o=> {
+           modalObject =  confirmedMenuCalendar.filter(okok)[0]
+          console.log(modalObject)
+
+              
+            //   modalObject.forEach( p=> {
+
+                modalObject.menu.forEach(o=> {
                     let oo = document.createElement('div');
                     oo.classList.add('day-modal-item');
                     oo.innerHTML = `${o.name} for ${o.type} at ${o.time} <br> Ingredients: `
                             for (let [i, q] of Object.entries(o)) {
-                                console.log(q.text)
 
                                   if( i.includes('ingredient')) {
                                     let ingredient = document.createElement('li');
@@ -661,22 +657,30 @@ dayOfWeekModal.forEach(week => {
           dayModalText.classList.add('day-modal')
           dayModalContainer.appendChild(dayModalText.cloneNode(true))
           dayModalContainer.classList.add('day-modal-container')
+          console.log(dayModalContainer)
           menuCalendar.appendChild(dayModalContainer);
+          for (let i=30; i <= menuCalendar.childNodes.length; i++)
+          {
+              if (menuCalendar.childNodes.length > 31) {
+                menuCalendar.childNodes[i].remove()
+              }
+          }
         return
         })
       
-    })}) 
+    })
     
 }
 
 document.addEventListener('click',function(e){
     if(e.target && e.target.id== 'iku'){
-          console.log('iku');
-          
+ 
           menuCalendar.childNodes[30].remove()
-          return
-          
+       
      }
+     return
+
+
  });
 
 
