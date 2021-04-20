@@ -118,7 +118,6 @@ function renderIngredient(item) {
     const qty = document.createElement('li');
     const amt = document.createElement('li');
     const buttonsDiv = document.createElement('div');
-    const selectBtn = document.createElement('button');
     const deleteBtn = document.createElement('button');
     ingredientName.textContent = item.text;
     ingredientName.classList.add('ingredient-item');
@@ -128,8 +127,6 @@ function renderIngredient(item) {
     amt.textContent = item.amt;
     deleteBtn.classList.add('delete');
     deleteBtn.textContent = 'delete';
-    selectBtn.classList.add('select');
-    selectBtn.textContent = 'select';
 
     // Append ingredienet info to newIngredient div
     newIngredient.appendChild(ingredientName);
@@ -137,52 +134,16 @@ function renderIngredient(item) {
     newIngredient.appendChild(amt);
     // Append buttons to buttons div
     buttonsDiv.appendChild(deleteBtn);
-    buttonsDiv.appendChild(selectBtn);
     newIngredient.appendChild(buttonsDiv);
     // Append newIngredient div to ingredients list div
     list.appendChild(newIngredient);
-    // Toggle 'selected' class
-    if (item.select == true) {
-        newIngredient.classList.toggle('crossout');
-    }
 
     // Delete individual ingredient from step 2.
     function deleteItem() {
         list.removeChild(newIngredient);
+        itemsArray = []
     }
     deleteBtn.addEventListener('click', deleteItem);
-
-    // Mark item as 'select' *** this function still has no use in this project ***
-    function selectItem() {
-        let saved = localStorage.getItem("mylist");
-        if (saved) {
-            itemsArray = JSON.parse(localStorage.getItem("mylist"));
-            newIngredient.onclick = e => {
-                let clicked = newIngredient;
-                let result = itemsArray.map(function(item) {
-                    const container = {};
-                    container.text = item.text;
-                    container.qty = item.qty;
-                    container.amt = item.amt;
-                    container.id = item.id;
-                    container.select = item.select;
-
-                    if (clicked.getAttribute("data-key") == item.id && !container.select) {
-                        container.select = true;
-                        newIngredient.classList.toggle('crossout');
-                    } else if (clicked.getAttribute("data-key") == item.id && container.select) {
-                        container.select = false;
-                        newIngredient.classList.toggle('crossout');
-                    } 
-                    return container
-                })
-                localStorage.setItem("mylist", JSON.stringify(result));
-            }
-        }
-    }
-
-    // 'Selected' item event listener
-    selectBtn.addEventListener('click', selectItem);
 
 }
 
@@ -200,7 +161,6 @@ function createIngredientObject() {
             qty: qtyInput.value,
             amt: amtInput.value,
             id: new Date().getTime(),
-            select: false
         }
         if (!qtyInput.value) {
             item.qty = 'N/A'
@@ -361,6 +321,7 @@ addItemBtn.addEventListener('click', createIngredientObject);
 
 // Create Small Calendar
 const today = new Date();
+const month = today.toLocaleString('en-EN', { month: 'long' });
 const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
 const calendarTitle = document.querySelector('.todays-date');
 calendarTitle.innerHTML = `Today's date: ${date}`;
@@ -605,51 +566,48 @@ let largeCalendarArray = Array.from(document.querySelectorAll('.modal-week .day'
 
 dayOfWeekModal.forEach(week => {
     week.addEventListener('click', event => {
-        let crossed = event.currentTarget.children[1].textContent;
-       function okok(i) {
+        let clicked = event.currentTarget.children[1].textContent;
+       function getClickedDay(i) {
 
-        if (crossed.charAt(1) && i.day == `${crossed.charAt(0)}${crossed.charAt(1)}`) {
-            return i.day == `${crossed.charAt(0)}${crossed.charAt(1)}`
+        if (clicked.charAt(1) && i.day == `${clicked.charAt(0)}${clicked.charAt(1)}`) {
+            return i.day == `${clicked.charAt(0)}${clicked.charAt(1)}`
         }
         else {
-     return i.day == crossed.charAt(0)}
+     return i.day == clicked.charAt(0)}
 
         }
-        let dayModalTitle = document.createElement('h1');
-        dayModalTitle.textContent = `Menu for ${date}:`
-        dayModalText.appendChild(dayModalTitle)
+   
         let modalObject = []
 
-           modalObject =  confirmedMenuCalendar.filter(okok)[0]
+           modalObject =  confirmedMenuCalendar.filter(getClickedDay)[0]
           console.log(modalObject)
-
-              
-            //   modalObject.forEach( p=> {
+          let dayModalTitle = document.createElement('h1');
+          dayModalTitle.textContent = `Menu for ${month} ${modalObject.day}:`
+          dayModalTitle.classList.add('day-modal-title')
+          dayModalText.appendChild(dayModalTitle)
 
                 modalObject.menu.forEach(o=> {
-                    let oo = document.createElement('div');
-                    oo.classList.add('day-modal-item');
-                    oo.innerHTML = `${o.name} for ${o.type} at ${o.time} <br> Ingredients: `
+                    let dayModalDiv = document.createElement('div');
+                    dayModalDiv.classList.add('day-modal-item');
+                    dayModalDiv.innerHTML = `<span class="menu-item-ingredient">${o.name}</span> <i>for</i> 
+                    <span class="menu-item-ingredient">${o.type}</span><i> at</i> <span class="menu-item-ingredient">${o.time}</span> 
+                     <br><br> <h3 class="ingredients">Ingredients:</h3> `
                             for (let [i, q] of Object.entries(o)) {
 
                                   if( i.includes('ingredient')) {
                                     let ingredient = document.createElement('li');
                                     ingredient.textContent= q.text;
-                                   oo.appendChild(ingredient)
+                                   dayModalDiv.appendChild(ingredient)
                                
                                    } } 
 
 
             
-                dayModalText.appendChild(oo)
+                dayModalText.appendChild(dayModalDiv)
                
           })
           let closeDayModalBtn = document.createElement('button');
           closeDayModalBtn.setAttribute('id', 'iku');
-
-        // closeDayModalBtn.addEventListener('click', () => console.log(menuCalendar.childNodes)
-        // // menuCalendar.removeChild(menuCalendar.childNodes[30])
-        //     )
             
           closeDayModalBtn.textContent= 'Close';
 

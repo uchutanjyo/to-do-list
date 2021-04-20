@@ -5,7 +5,8 @@ html {
 
 body {
     margin: 0;
-
+    background-repeat: no-repeat;
+     background-attachment: fixed;
     background-image: url(food.jpg);
     background-size: cover;
     width: 100%;
@@ -122,6 +123,23 @@ width: 80%;
       font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
       color: whitesmoke
   }
+
+
+  .day-modal-title {
+    color:deeppink;
+    
+
+  }
+
+  .menu-item-ingredient {
+    color:black;
+    text-decoration: underline;
+    text-decoration-style:dotted;
+
+  }
+
+  .ingredients {
+  }
       /* large calendar list items */
 
       .modal-week li {
@@ -129,6 +147,8 @@ width: 80%;
         margin-left: 10px;
         padding: 5px;
     }
+
+
   
   @keyframes modalopen {
   from {
@@ -427,9 +447,12 @@ align-items: center;}
     margin-left: 10px;
 }
 label {
+    text-decoration: none;
     margin-right: 10px;
 
 }
+
+
 .button {
     font-family:cursive;
     border-style: solid;
@@ -438,13 +461,9 @@ label {
 
 }
 
-.buttons {
-
-}
 
 .delete {
     text-align: center;
-
     background-color: rgba(76, 76, 207, 0.4);
     color: white;
    width: 40px;
@@ -495,18 +514,18 @@ border-radius: 5%;
 }
 
 .meal-type-input {
-    width: 200px;
+    width: 219px;
     height: 30px;
     font-size: 15px;
-    margin-right: 10px;
+    margin-left: 5px;
     margin-bottom: 10px;
 }
 
 .time-input {
-    width: 120px;
+    width: 202px;
     height: 20px;
     font-size: 15px;
-    margin-right: 10px;
+    margin-left: 52px;
     margin-bottom: 10px;
 }
 
@@ -579,9 +598,6 @@ margin-right: 10px
   
 }
 
-.ingredients-list {
-    
-}
 
 .confirm-ingredients li {
     color: rgb(0, 225, 255)
