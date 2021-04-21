@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>meal-planner--</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"/>
 
 
 </head>
@@ -17,7 +18,7 @@
         <h1>Meal planner</h1>
     </div>
     <div class="left-and-right">
-        <div class="left-bottom-container">
+        <div class="left-top-container">
             <div id="ingredient-title">
                 <h2>1. Menu item</h2>
             
@@ -26,11 +27,11 @@
                 <form  class="form" id="meal">
                     <!-- <h1>Please add your ingredients.</h1> -->
                     <span>
-                    <label for="item-input">Dish Name</label>
+                    <label for="item-input">dish name</label>
                     <input type="text" class="dish-input">
                 </span>
                 <span>
-                    <label for="meal-type">Meal type</label>
+                    <label for="meal-type">meal type</label>
                     <select default="" class="meal-type-input" name="meal-type">
                         <option value="other"></option>
                       <option value="breakfast">Breakfast</option>
@@ -54,7 +55,7 @@
     <h2>2. Ingredients </h2>
 
 </div>
-<div class="form-container">
+<div class="form-container" id="bottom-form-container">
     <form  class="form">
         <span id="choose" >  <span class="pending-item"></span> 
    
@@ -63,13 +64,17 @@
         <button class="edit hidden">Edit menu item</button>
         
      </span>
-  
+  <span>
         <label for="item-input">ingredient</label>
         <input type="text" class="item-input">
+    </span>
         <span>
         <label for="quantity">quantity</label>
         <input type="number" class="quantity-select" name="quantity" min="1" max="99"> 
+        
 <b>OR</b>
+</span>
+<span>
         <label for="amount" id="amount">amount</label>
         <input type="text" class="amt-select" name="amount"> 
     </span>
@@ -77,28 +82,31 @@
     <span class="buttons1">
         <button type="button" class="add-item">Add ingredient</button>
         <button type="button" class="clear">Clear ingredients</button>
-        <button type="button" class="submit" id="submit-item">Submit/update</button>
+        <button type="button" class="submit" id="submit-item">Submit</button>
 
     </span>
     </form>
 </div>
 <div class="headings">
   
-<span>item</span>
+<span id="item-heading">item</span>
 <span id="quantity-heading">quantity </span>
 <span id="amount-heading">amount </span>
 
 
 </div>
 <div class="items-container" id="ingredient-stock">
-    <div class="items">
+    <div id="items">
+      
+            
         <ul class="list">
   
         </ul>
+    <ul class="beside-list"></ul>
     </div>
 </div>
-
 </div>
+
 
 </div>
 <div class="right-top-container">
@@ -126,7 +134,7 @@
         </span>
         <div class="calendar">
             <div class="calendar-container">
-                <div class="header"><h3>Calendar</h3>
+                <div class="calendar-header"><h3>Calendar</h3>
                     <div>Please select a day(s) and click 'submit' to add your menu item to the calendar. Click 'open calendar' to open large calendar and view your menu.</div>
                 </div>
                 <div>
@@ -140,12 +148,11 @@
                 <div id="app-calendar" >
                  
                 </div>
-            <!-- week2 -->
                
                 </div>
         </div>
     </div>
-    
+</div>
     </div>
     <div class="event" data-date="2020-03-26T13:30:00">
       <div class="date"></div>
@@ -160,11 +167,12 @@
 <!-- Calendar Modal -->
 <div class="modal-container">
     <div class="modal-header">
-        <span class="todays-date" id="modal-date">
-        </span>
-        <span class="modal-info">
-            click a calendar day to view your menu (including ingredients) for that day.        </div>
-        </span>
+        <div class="todays-date" id="modal-date">
+        </div>
+        <div class="modal-info">
+            <h4>
+            click a calendar day to view your menu (including ingredients) for that day.    </h4>    </div>
+        </div>
         <span class="close">
             <button class="close-calendar">Close calendar</button>
 

@@ -1,744 +1,808 @@
-html {
-    box-sizing: border-box;
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap");
 
+html {
+  box-sizing: border-box;
 }
 
 body {
-    margin: 0;
-    background-repeat: no-repeat;
-     background-attachment: fixed;
-    background-image: url(food.jpg);
-    background-size: cover;
-    width: 100%;
-    height: 100%;
+  margin: 0;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-image: url(food.jpg);
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+  font-family: "Playfair Display";
 }
 
 /* CALENDAR-MODAL */
 .modal-container {
-    background: rgba(0,0,0,0.9);
-    
-    display: none;
-    position: fixed;
-    top:0;
-    left:0;
-    right:0;
-    bottom:0;
-    overflow-y: auto;
-    height: auto
-  }
+  background: rgba(0, 0, 0, 0.9);
 
-  .show-modal {
-    display: flex;
-    flex-direction: column;
-    align-items: center
-    
-  }
-  
-  .modal {
-    width: 95vw;
-    animation: modalopen 2s;
-    display:grid;
-    grid-template-columns: repeat(7, 1fr);
-    grid-template-rows: repeat(5, 1fr);
-    grid-gap: 2px 10px;
-    border: 1px dotted;
-  }
-  
-  .modal-header {
-    background-color: rgba(6, 8, 26, 0.7);
-      padding: 20px;
-      color:rgb(216, 59, 208);
-      display: flex
-  }
-  .modal-date {
-    color:rgb(216, 59, 208);
-    margin-left: 30px;
-  }
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow-y: auto;
+  height: auto;
+}
 
-  .modal-info {
-    margin-left: 30px;
-    color:rgb(126, 25, 122);
-  }
+.show-modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
-  .close button {
-    color:rgb(192, 49, 173);
-    background-color: black;
-    padding-bottom: 20px
-  }
+.modal {
+  width: 95vw;
+  animation: modalopen 2s;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  grid-gap: 2px 10px;
+  border: 1px dotted;
+}
 
-  .modal-week {
-      
-    background-color: rgb(134, 177, 175);
-    font-size: 20px;
-    cursor: pointer;
-    transition: ease-in 0.3s;
-    padding: 5px;
-    border: 1px dotted;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    height: 150px;
-    max-width: 150px;
-    display: flex;
-    flex-direction: column;
-    overflow-y: auto
-  }
+.modal-header {
+  background-color: rgba(6, 8, 26, 0.7);
+  padding: 20px;
+  color: rgb(216, 59, 208);
+  display: flex;
+  font-size: 2em;
+}
+.modal-date {
+  color: rgb(216, 59, 208);
+  margin-left: 30px;
+}
 
-  .modal-week .day {
-    display: flex;
-    flex-direction: column;
+.modal-info {
+  margin-left: 30px;
+  color: rgb(126, 25, 122);
+}
 
-  }
+.close button {
+  color: rgb(192, 49, 173);
+  background-color: black;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
 
-  .modal-week .items {
-    display: flex;
-    flex-direction: column;
+.modal-week {
+  background-color: rgb(134, 177, 175);
+  font-size: 20px;
+  cursor: pointer;
+  transition: ease-in 0.3s;
+  padding: 5px;
+  border: 1px dotted;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  height: 150px;
+  max-width: 150px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
 
-  }
+.modal-week .day {
+  display: flex;
+  flex-direction: column;
+}
 
-  /* Day Modal */
+.modal-week .items {
+  display: flex;
+  flex-direction: column;
+}
 
-  .day-modal-container {
-    background: rgba(126, 25, 122, 0.9);
-    display:flex;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    width: 80vw;
-    height: 80vh;
-       z-index: 10;
-  }
+/* Day Modal */
 
- 
-  .day-modal {
+.day-modal-container {
+  background: rgba(126, 25, 122, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  width: 80vw;
+  height: 80vh;
+  z-index: 10;
+  animation: modalopen 1s;
+}
+
+.day-modal {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-width: 80%;
-    border: 1px dotted;
-    overflow-y: scroll;
-  }
+  width: 80%;
+  border: 1px dotted;
+  overflow-y: scroll;
+}
 
-  .day-modal-item {
-      margin-top: 10px;
-      font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-      color: whitesmoke
-  }
+.day-modal-item {
+  margin-top: 10px;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  color: whitesmoke;
+}
 
+.day-modal-title {
+  color: deeppink;
+}
 
-  .day-modal-title {
-    color:deeppink;
-    
-
-  }
-
-  .menu-item-ingredient {
-    color:black;
-    text-decoration: underline;
-    text-decoration-style:dotted;
-
-  }
-
-  .ingredients {
-  }
-      /* large calendar list items */
-
-      .modal-week li {
-        color: black;
-        margin-left: 10px;
-        padding: 5px;
-    }
+.menu-item-ingredient {
+  color: black;
+  text-decoration: underline;
+  text-decoration-style: dotted;
+}
 
 
-  
-  @keyframes modalopen {
+/* large calendar list items */
+
+.modal-week li {
+  color: black;
+  margin-left: 10px;
+  padding: 5px;
+}
+
+@keyframes modalopen {
   from {
-  opacity: 0;
-  }
-  
-  to {
-  opacity: 1;
-  }
+    opacity: 0;
   }
 
-    
+  to {
+    opacity: 1;
+  }
+}
+
 .layer {
-    background-color: rgba(86, 88, 104, 0.5);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-margin: 0;
-height: 170vh;
-   
- 
+  background-color: rgba(86, 88, 104, 0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  height: 170vh;
 }
 
 #main-title {
-    width: 50vw;
-    height: 8vh;
-    font-size: 20px;
-    border: 1px solid black;
-    margin-top: 5px;
-    color: rgb(202, 117, 198);
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    text-align: center;
-    letter-spacing: 10px;
-    display: flex;    
-    align-items: center;
-    justify-content: center;
-    background-color: rgba(6, 8, 26, 0.7);
-    border-radius: 5%;
-
-
+  width: 50vw;
+  height: 8vh;
+  font-size: 20px;
+  border: 1px solid black;
+  margin-top: 5px;
+  color: rgb(202, 117, 198);
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  text-align: center;
+  letter-spacing: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(6, 8, 26, 0.7);
+  border-radius: 5%;
 }
 
 #ingredient-title {
-    color: rgb(202, 201, 202);
-    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    text-align: center;
-    letter-spacing: 3px;
-    font-size: 20px;
-margin: 0;
-    height: 40px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-
+  color: rgb(202, 201, 202);
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  text-align: center;
+  letter-spacing: 3px;
+  font-size: 20px;
+  margin: 0;
+  height: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 #ingredient-title h1 {
-margin-top: 0px
-
-;
+  margin-top: 0px;
 }
 
 .left-and-right {
-    display: flex;
-    align-items: left;
-    background-color: rgba(86, 88, 104, 0.5);
-    border-radius: 5%;
-
-   
-
-
+  display: flex;
+  align-items: left;
+  background-color: rgba(86, 88, 104, 0.5);
+  border-radius: 5%;
 }
 
 .left-container {
-    border-radius: 5%;
-    width: 30vw;
-    display: flex;
-    flex-direction: column;
-   
- 
-    margin-top: 5px;
-    background-color: rgba(86, 88, 104, 0.5);
+  border-radius: 5%;
+  width: 30vw;
+  display: flex;
+  flex-direction: column;
 
+  margin-top: 5px;
+  background-color: rgba(86, 88, 104, 0.5);
 }
 
 
 
-h1, h2, h3 {
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 
+
+h1,
+h2,
+h3 {
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 }
 
 h2 {
-    font-size: 1em;
-    color: white
+  font-size: 1em;
+  color: white;
 }
 .form-container {
-    border: 1px dotted;
-    padding: 10px;
-    font-size: 1em;
-
-
-}
-
-.form-container span {
-   
+  border: 1px dotted;
+  padding: 10px;
+  font-size: 1em;
 }
 
 #choose {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 50px;
-    margin-left: 15px;
-    margin-right: 15px;
-    margin-bottom: 15px;
-    background-color: rgba(6, 8, 26, 0.7);
-    color: white;
-    padding: 5px;
-
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  margin-left: 15px;
+  margin-right: 15px;
+  margin-bottom: 15px;
+  background-color: rgba(6, 8, 26, 0.7);
+  color: white;
+  padding: 5px;
 }
 
 .pending-item {
-    color:rgb(216, 59, 208);
-    font-family:fantasy;
-    font-size: 1em;
-    margin-right: 10px;
-    letter-spacing: 2px;
-    overflow-x: auto;
-    overflow-wrap: break-word;
-    font-weight: normal;
-
+  color: rgb(216, 59, 208);
+  font-family: fantasy;
+  font-size: 1em;
+  margin-right: 10px;
+  letter-spacing: 2px;
+  overflow-x: auto;
+  overflow-wrap: break-word;
+  font-weight: normal;
 }
 
 .item-type {
-    font-size: 1em;
-    margin-left: 10px;
+  font-size: 1em;
+  margin-left: 10px;
 }
 
 .item-time {
-    font-size: 1em;
-    margin-left: 10px;
-
+  font-size: 1em;
+  margin-left: 10px;
 }
 .edit {
-    margin-left: 20px;
-    background-color: rgba(30, 30, 70, 0.7);
-    color: white;
+  margin-left: 20px;
+  background-color: rgba(30, 30, 70, 0.7);
+  color: white;
 }
 
 .hidden {
-    display: none
+  display: none;
 }
 
 .new-item {
-    width: 500px;
-    height: 30px;
-    font-size: 20px;
+  width: 500px;
+  height: 30px;
+  font-size: 20px;
 }
 .item-input {
-    width: 110px;
-    height: 20px;
-    font-size: 15px;
-    margin-right: 10px;
-    margin-bottom: 10px;
-
-
+  width: 110px;
+  height: 20px;
+  font-size: 15px;
+  margin-right: 10px;
+  margin-bottom: 10px;
 }
 
-.new-ingredient {
+.new-ingredient  {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+
+}
+/* 
+.new-ingredient li:nth-child(2) {
+    color: burlywood;
+    margin-left: -3em
+    
+    }
+
+.new-ingredient li:nth-child(2) {
+    color: burlywood;
+    margin-left: 1em
+    
+    }
+
+.new-ingredient li:nth-child(3) {
+color: burlywood;
+margin-left: 8em
+
+} */
+.buttons-div {
     margin-top: 20px;
     display: flex;
     justify-content: space-between;
-    
-    
 }
 
 li {
-    font-size: 1em;
-    color:rgb(202, 117, 198);
-    font-weight: bold;
-    list-style: none;
-    list-style-position: inside;
-     padding-top: 10px;
-    
+  font-size: 1em;
+  color: rgb(202, 117, 198);
+  font-weight: bold;
+  list-style: none;
+  list-style-position: inside;
+  padding-top: 10px;
 }
 
 .ingredient-item {
-    font-size: 20px;
-letter-spacing: 1px;
-color:rgb(202, 117, 198);
-overflow-x: auto;
-overflow-wrap: break-word;
-width: 130px;
-
+  font-size: 20px;
+  letter-spacing: 1px;
+  color: rgb(202, 117, 198);
+  overflow-x: auto;
+  overflow-wrap: break-word;
+  width: 130px;
 }
 .quantity {
-    width: 30px;
-    font-size: 20px;
-    margin-left: -20px;
-
+  width: 30px;
+  font-size: 20px;
+  margin-left: -20px;
 }
 
 .amount {
-    width: 60px;
-    font-size: 20px;
-    margin-left: 30px;
-    overflow-x: auto;
-overflow-wrap: break-word;
-
+  width: 60px;
+  font-size: 20px;
+  margin-left: 30px;
+  overflow-x: auto;
+  overflow-wrap: break-word;
 }
 
 .buttons1 {
-    display: flex;
-align-items: center;}
+  display: flex;
+  align-items: center;
+  width: 160px;
+}
 
 .add-item {
-    text-decoration: none;
-    margin-right: 10px;
-    margin-left: 20px;
-    margin-top: 10px;
-    width: 130px;
-    font-style: cursive;
-    background-color: rgba(30, 30, 70, 0.7);
-    color: white;
-
+  text-decoration: none;
+  margin-right: 10px;
+  margin-left: 20px;
+  margin-top: 10px;
+  background-color: rgba(30, 30, 70, 0.7);
+  color: white;
 }
 
 .clear {
-    text-decoration: none;
-    margin-right: 10px;
-    margin-left: 5px;
-    margin-top: 10px;
-    width: 160px;
-    background-color: rgba(30, 30, 70, 0.7);
-    color: white;
+  text-decoration: none;
+  margin-right: 10px;
+  margin-left: 5px;
+  margin-top: 10px;
+  background-color: rgba(30, 30, 70, 0.7);
+  color: white;
 }
 
 #submit-item {
-    background-color: rgba(30, 30, 70, 0.7);
-    color: white;
+  background-color: rgba(30, 30, 70, 0.7);
+  color: white;
 }
 
 #ingredient-stock {
-    font-size: 1em;
-    height: 300px;
-    max-height:280px;
-    border-width: 1px;
-    border-style: dotted;
-    border-radius: 5%;
-    overflow-y: auto;
+  font-size: 1em;
+  max-height: 490px;
  
+  border-width: 1px;
+  border-style: dotted;
+  border-radius: 5%;
+  overflow-y: auto;
 }
+
+
 
 .headings {
-    display: flex;
-    font-size: 1em;
-
-}
-
-#quantity-heading {
-    margin-left: 20px;
-    
-}
-
-#amount-heading {
-    margin-left:20px;
-}
-
-.headings span {
-    margin-left: 50px;
-    margin-right: 20px
+  display: flex;
+  font-size: 1em;
+  justify-content: space-between;
+  width: 70%
 }
 
 
 
-.ingredient-item {
 
+#item-heading {
+  margin-left: 10px;
+}
+
+#items {
+    max-width: 100%;
+    display: flex
+}
+
+.beside-list {
+    width: 10px;
+display: flex;
+flex-direction: column;
+justify-content: space-between;
 }
 
 .list {
-    margin-top: 15px;
+        width: 70%;
+  margin-top: 5px;
+  font-size: 1em;
+  width: 70%;
+  background-color: springgreen;
 }
 
+
 .quantity-select {
-    width:30px;
-    margin-right: 10px;
+  width: 30px;
+  margin-right: 10px;
 }
 
 .amt-select {
-    width:30px;
-    margin-right: 10px;
+  width: 30px;
+  margin-right: 10px;
 }
 
 #amount {
-    margin-left: 10px;
+  margin-left: 10px;
 }
 label {
-    text-decoration: none;
-    margin-right: 10px;
-
+  text-decoration: none;
+  margin-right: 10px;
 }
-
 
 .button {
-    font-family:cursive;
-    border-style: solid;
-    border-radius: 5%;    text-align: center;
-    
-
+  border-radius: 5%;
+  text-align: center;
 }
-
 
 .delete {
-    text-align: center;
-    background-color: rgba(76, 76, 207, 0.4);
-    color: white;
-   width: 40px;
-   height: 30px;
-   font-size: 10px;
-font-family:cursive;
-margin-left: 20px;
-border-radius: 5%;
 
 
-    
 }
 .select {
-    background-color: rgba(76, 76, 207, 0.4);
-    color: white;
+  background-color: rgba(76, 76, 207, 0.4);
+  color: white;
 
-    width: 40px;
-    height: 30px;
- font-size: 10px;
- font-family:cursive;
- border-radius: 5%;
- margin-right: 10px;
-     
- }
+  width: 40px;
+  height: 30px;
+  font-size: 10px;
+  font-family: cursive;
+  border-radius: 5%;
+  margin-right: 10px;
+}
 
+.left-top-container {
+  height: 89vh;
+  width: 30vw;
+  display: flex;
+  flex-direction: column;
+  border-radius: 5%;
 
-.left-bottom-container {
-
-    height: 89vh;
-    width: 30vw;
-    display: flex;
-    flex-direction: column;
-    border-radius: 5%;
-
-    margin-top: 5px
+  margin-top: 5px;
 }
 #meal {
-    display: flex;
-    flex-direction: column;
-    font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;
 }
 .dish-input {
-    width: 200px;
-    height: 20px;
-    font-size: 15px;
-    margin-right: 10px;
-    margin-bottom: 10px;
+  width: 200px;
+  height: 20px;
+  font-size: 15px;
+  margin-right: 10px;
+  margin-bottom: 10px;
 }
 
 .meal-type-input {
-    width: 219px;
-    height: 30px;
-    font-size: 15px;
-    margin-left: 5px;
-    margin-bottom: 10px;
+  width: 219px;
+  height: 30px;
+  font-size: 15px;
+  margin-left: 5px;
+  margin-bottom: 10px;
 }
 
 .time-input {
-    width: 202px;
-    height: 20px;
-    font-size: 15px;
-    margin-left: 52px;
-    margin-bottom: 10px;
+  width: 202px;
+  height: 20px;
+  font-size: 15px;
+  margin-left: 43px;
+  margin-bottom: 10px;
 }
 
- /* right container */
+/* right container */
 
- .right-top-container {
-    border-radius: 5%;
-    width: 30vw;
-    display: flex;
-    flex-direction: column;
- }
+.right-top-container {
+  border-radius: 5%;
+  width: 30vw;
+  display: flex;
+  flex-direction: column;
+}
 #confirm-title {
-    color: rgb(202, 201, 202);
-    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    letter-spacing: 3px;
-    font-size: 20px;
-margin: 0;
+  color: rgb(202, 201, 202);
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  letter-spacing: 3px;
+  font-size: 20px;
+  margin: 0;
 
-    display: flex;
-    flex-direction: column;
-   text-align: center;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
 }
 
 .confirm-container {
-    border: 1px dotted;
-    padding: 10px;
-    font-size: 1em;
-    color: black;
-    text-align: center;
+  border: 1px dotted;
+  padding: 10px;
+  font-size: 1em;
+  color: black;
+  text-align: center;
 }
 
 #name {
-color:rgb(202, 117, 198);
-font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-font-size: 30px;
-margin-right: 10px
+  color: rgb(202, 117, 198);
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  font-size: 30px;
+  margin-right: 10px;
 }
 #as {
-    color: black;
+  color: black;
 }
 #type {
-    color:rgb(85, 18, 82);
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    font-size: 25px;
-    margin-right: 10px;
-    text-transform: uppercase;
-
+  color: rgb(85, 18, 82);
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  font-size: 25px;
+  margin-right: 10px;
+  text-transform: uppercase;
 }
 #at {
-    color: black;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  color: black;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
 
 #time1 {
-    color:rgb(230, 230, 230);
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    font-size: 25px;
-    margin-right: 10px
-
+  color: rgb(230, 230, 230);
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  font-size: 25px;
+  margin-right: 10px;
 }
 
 .confirm-ingredients {
-    display: flex;
-    flex-direction: column;
-   align-items: center;
-    color:sandybrown;
-    letter-spacing: 2px;
-    max-height: 200px;
-    overflow-y: auto;
-  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: sandybrown;
+  letter-spacing: 2px;
+  max-height: 200px;
+  overflow-y: auto;
 }
 
+.confirm-ingredients h2 {
+  text-decoration: underline;
+  text-decoration-style: dotted;
+}
 
 .confirm-ingredients li {
-    color: rgb(0, 225, 255)
+  color: rgb(149, 228, 224);
+  font-size: 20px;
+}
+
+.ingredients-list {
+  border-bottom: 1px dotted;
 }
 
 .buttons {
-    display: flex;
-   justify-content: center;
-   margin-top: 10px
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .submit {
-    background-color: rgba(30, 30, 70, 0.7);
-    color: white;
-    width: 300px;
+  background-color: rgba(30, 30, 70, 0.7);
+  color: white;
+  width: 300px;
 }
 
 .delete1 {
-    
-    width: 100px;
-
-}
-
-
-
-.items-container::-webkit-scrollbar { 
-    display: none;  /* Safari and Chrome */
+  width: 100px;
 }
 
 
 /* calendar */
 
-
-
 .calendar-container {
-    width: 30vw ;
-    border: 1px dotted;
-    background-color: rgb(223, 222, 222);
-    z-index: 1;
-    
+  width: 30vw;
+  border: 1px dotted;
+  background-color: rgb(223, 222, 222);
+  z-index: 1;
+}
+
+.calendar-header {
+  text-align: center;
+  font-size: 15px;
+  padding: 10px;
+  background-color: rgba(76, 76, 207, 0.4);
+}
+#app-calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  border: 1px dotted;
+  width: 30vw;
+}
+
+.week {
+  background-color: rgb(134, 177, 175);
+  font-size: 20px;
+  cursor: pointer;
+  transition: ease-in 0.3s;
+  padding: 5px;
+  border: 1px dotted;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  height: 90px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.week:hover {
+  opacity: 0.8;
+}
+
+.day {
+  margin-top: 10px;
+  font-size: 15px;
+  display: flex;
+}
+
+.weekend {
+  background-color: khaki;
+}
+
+.weekend:hover {
+  opacity: 0.8;
+}
+
+.todays-date {
+  padding: 5px;
+}
+
+.legend {
+  border-radius: 50%;
+  position: initial;
+  display: block;
+  width: 7px;
+  height: 7px;
+  text-decoration: none;
+  cursor: default;
+  border: 1px dotted;
+}
+
+#breakfast {
+  background-color: rgb(243, 255, 139);
+}
+
+#lunch {
+  background-color: rgb(59, 172, 44);
+}
+
+#dinner {
+  background-color: rgb(218, 19, 19);
+}
+
+#snack {
+  background-color: rgb(207, 37, 199);
+}
+
+#other {
+  background-color: rgb(153, 149, 153);
+}
+
+.crossout {
+  background-color: rgba(255, 255, 255, 0.9);
+  color: black;
+}
+
+@media screen and (max-width: 600px) {
+    body {
+  background-color: rgba(44, 44, 149, 0.7);
+        background-image: none;
+       display: flex;
+       flex-direction: column;
+       justify-content: center;
+       width: 100vw;
     }
 
-    .header {
+    #main-title {
+        height: 200px;
+        margin-bottom: 10px;
+        margin-top: -50px
+    }
+
+   .layer {
+        width: 100vw;   display: flex;
+justify-content: center;
+
+    }
+    .left-and-right {
+
+    }
+
+    div {
+ max-width: 100vw;
+ overflow:inherit
+
+    }
+
+    .left-top-container {
+        width: 50vw
+            }
+
+            .left-container {
+                width: 50vw
+                    }
+
+                    .add-item {
+                   
+                        margin-left: 0px;
+                       
+                      }
+
+                      .list {
+                        width: 70%
+                      }
+
+                      /* #bottom-form-container span:nth-child(3){
+                        margin-right: 0px;
+                      } */
+
+                      #bottom-form-container span{
+                        margin-right: 12px;
+                        margin-left: 0px
+                      }
+
+
+                   
+
+    h1 {
+        font-size: 2em;
+    }
+
+
+
+
+    .right-top-container {
+        width: 50vw;
+
+    }
+
+    .calendar-container {
+
+            width: 50vw
+                
+    }
+
+    #app-calendar  {
+        width: 50vw;
+        font-size: 10px
+}
+    .confirm-container {
+        width: 50vw
+    }
+
+    .buttons1 button{
+    font-size: 10px;
+    overflow:unset;
+    min-width: 70px;
+    max-width: 80px;
+    }
+
+    button {
+        font-size: 70%;
         text-align: center;
-        font-size: 15px;
-        padding: 10px;
-        background-color: rgba(76, 76, 207, 0.4);
+        max-width: 80px;
 
     }
-    #app-calendar
-    {        display:grid;
-     grid-template-columns: repeat(7, 1fr);
-     grid-template-rows: repeat(5, 1fr);
-     /* grid-gap: 2px 10px; */
-     border: 1px dotted;
-     width: 30vw
- }
+
+    input {
+        max-width:100px;
+    }
     
-    
-    .week {
-      
-        background-color: rgb(134, 177, 175);
-        font-size: 20px;
-        cursor: pointer;
-        transition: ease-in 0.3s;
-        padding: 5px;
-        border: 1px dotted;
-        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-        height: 90px;
-        overflow-y: auto;
-        display: flex;
-        flex-direction: column;
-      }
-
-      .week:hover {
-          opacity: 0.8
-      }
-
-      .day {
-          margin-top: 10px;
-          font-size: 15px;
-          display: flex;
-    
-
-      }
-
-      .weekend {
-        background-color: khaki;
-
-      }
-
-      .weekend:hover {
-        opacity: 0.8
-      }
-
-     .todays-date {
-         padding: 5px;
-     }
-
-     .legend {
-        border-radius: 50%;
-        position:initial;
-        display: block;
-        width: 7px;
-        height: 7px;
-        text-decoration: none;
-        cursor: default;
-        border: 1px dotted
-     }
-
-     .legend-span {
-
-     }
-
-     #breakfast {
-        background-color: rgb(243, 255, 139);
-         }
-
-     #lunch {
-        background-color: rgb(59, 172, 44);
-
+    select {
+        max-width: 100px;
     }
-
-    #dinner {
-        background-color: rgb(218, 19, 19);
-
-    }
-
-    #snack {
-        background-color: rgb(207, 37, 199);
-
-    }
-
-    #other {
-        background-color: rgb(153, 149, 153);
-
-    }
-
-
- .crossout {
-    background-color: rgba(255,255,255,0.9);
-    color: black;
-  }
-      
+}

@@ -20,6 +20,7 @@ const amtInput = document.querySelector('.amt-select');
 const addItemBtn = document.querySelector('.add-item');
 const clearItemBtn = document.querySelector('.clear');
 const submitMenuItem = document.querySelector('#submit-item');
+let besideList = document.querySelector('.beside-list');
 let list = document.querySelector('.list');
 let itemsArray = [];
 let newItemsArray = []
@@ -118,7 +119,9 @@ function renderIngredient(item) {
     const qty = document.createElement('li');
     const amt = document.createElement('li');
     const buttonsDiv = document.createElement('div');
-    const deleteBtn = document.createElement('button');
+    buttonsDiv.classList.add('buttons-div')
+    const deleteBtn = document.createElement('li');
+    deleteBtn.innerHTML = '<i class="far fa-trash-alt delete"></i>'
     ingredientName.textContent = item.text;
     ingredientName.classList.add('ingredient-item');
     qty.classList.add('quantity');
@@ -126,7 +129,6 @@ function renderIngredient(item) {
     amt.classList.add('amount');
     amt.textContent = item.amt;
     deleteBtn.classList.add('delete');
-    deleteBtn.textContent = 'delete';
 
     // Append ingredienet info to newIngredient div
     newIngredient.appendChild(ingredientName);
@@ -134,8 +136,9 @@ function renderIngredient(item) {
     newIngredient.appendChild(amt);
     // Append buttons to buttons div
     buttonsDiv.appendChild(deleteBtn);
-    newIngredient.appendChild(buttonsDiv);
+    // newIngredient.appendChild(buttonsDiv);
     // Append newIngredient div to ingredients list div
+    besideList.appendChild(buttonsDiv)
     list.appendChild(newIngredient);
 
     // Delete individual ingredient from step 2.
@@ -166,7 +169,7 @@ function createIngredientObject() {
             item.qty = 'N/A'
         }
         // Reset step 2. inputs
-     itemInput.value  = '';
+    //  itemInput.value  = '';
       qtyInput.value  = '';
        amtInput.value  = '';
         // push ingredients list to its own array
@@ -200,11 +203,11 @@ function confirmMenuItem() {
         for (let item of itemsArray) {
             console.log(item)
             let ingredient = document.createElement('li');
-            if (item.amt === 'N/A') {
-                item.amt = '';
-            } else if (item.qty === 'N/A') {
-                item.qty = ''
-            }console.log( name1)
+            // if (item.amt === 'N/A') {
+            //     item.amt = '';
+            // } else if (item.qty === 'N/A') {
+            //     item.qty = ''
+            // }console.log( name1)
             if (name1.textContent && name1.textContent != menuItemsArray[0].name) {
 
                 newItemsArray = [];   
@@ -221,7 +224,7 @@ function confirmMenuItem() {
             //     list.textContent = '';
               
             // }
-            ingredient.textContent = `${item.text} - ${item.qty} - ${item.amt}`;
+            ingredient.innerHTML = `<b>${item.text}</b>  <i>quantity:</i>  ${item.qty} - <i>amount:</i> ${item.amt}`;
             confirmIngredients.appendChild(ingredient);
             // Reset step 2. ingredient list
             list.textContent = '';
@@ -518,8 +521,6 @@ console.log(confirmedMenuItem)
            confirmedMenuItem =  renameKey(confirmedMenuItem, `${propt}`, `ingredient ${(propt + 1)}`)
           }
         }
-        // ----------------------------------------------
-
         confirmedMenuItem.legend = anchor.innerHTML;
         // Find days which are already elements in days array
         let existingDay = confirmedMenuCalendar.filter(i => {console.log(i.day == daynum);
@@ -554,8 +555,7 @@ console.log(confirmedMenuItem)
 // Create modal when day clicked on large calendar
 function createDayModal() {
 if (menuCalendar.childNodes[30])
-
-{ console.log('ar')
+{ 
     menuCalendar.childNodes[30].remove}
       
 let dayModalContainer = document.createElement('div');
@@ -600,14 +600,11 @@ dayOfWeekModal.forEach(week => {
                                    dayModalDiv.appendChild(ingredient)
                                
                                    } } 
-
-
-            
                 dayModalText.appendChild(dayModalDiv)
                
           })
           let closeDayModalBtn = document.createElement('button');
-          closeDayModalBtn.setAttribute('id', 'iku');
+          closeDayModalBtn.setAttribute('id', 'close-day-modal');
             
           closeDayModalBtn.textContent= 'Close';
 
@@ -617,6 +614,7 @@ dayOfWeekModal.forEach(week => {
           dayModalContainer.classList.add('day-modal-container')
           console.log(dayModalContainer)
           menuCalendar.appendChild(dayModalContainer);
+          menuCalendar.style.overflow = 'hidden';
           for (let i=30; i <= menuCalendar.childNodes.length; i++)
           {
               if (menuCalendar.childNodes.length > 31) {
@@ -631,13 +629,11 @@ dayOfWeekModal.forEach(week => {
 }
 
 document.addEventListener('click',function(e){
-    if(e.target && e.target.id== 'iku'){
- 
-          menuCalendar.childNodes[30].remove()
-       
+    if(e.target && e.target.id== 'close-day-modal'){
+          menuCalendar.childNodes[30].remove();
+          menuCalendar.style.overflow = 'visible';
      }
      return
-
 
  });
 
@@ -660,12 +656,12 @@ function getSaved() {
       console.log(newItemsArray)
         for (let item of newItemsArray) {
             let ingredient = document.createElement('li');
-            if (item.amt === 'N/A') {
-                item.amt = '';
-            } else if (item.qty === 'N/A') {
-                item.qty = ''
-            }
-            ingredient.textContent = `${item.text} - ${item.qty} - ${item.amt}`;
+            // if (item.amt === 'N/A') {
+            //     item.amt = '';
+            // } else if (item.qty === 'N/A') {
+            //     item.qty = ''
+            // }
+            ingredient.innerHTML = `<b>${item.text}</b>  <i>quantity:</i>  ${item.qty} - <i>amount:</i> ${item.amt}`;
             confirmIngredients.appendChild(ingredient); }
             
     } else {
