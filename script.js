@@ -144,6 +144,8 @@ function renderIngredient(item) {
     // Delete individual ingredient from step 2.
     function deleteItem() {
         list.removeChild(newIngredient);
+        besideList.removeChild(buttonsDiv)
+
         itemsArray = []
     }
     deleteBtn.addEventListener('click', deleteItem);
@@ -203,11 +205,11 @@ function confirmMenuItem() {
         for (let item of itemsArray) {
             console.log(item)
             let ingredient = document.createElement('li');
-            // if (item.amt === 'N/A') {
-            //     item.amt = '';
-            // } else if (item.qty === 'N/A') {
-            //     item.qty = ''
-            // }console.log( name1)
+            if (item.amt === 'N/A') {
+                item.amt = '';
+            } else if (item.qty === 'N/A') {
+                item.qty = ''
+            }
             if (name1.textContent && name1.textContent != menuItemsArray[0].name) {
 
                 newItemsArray = [];   
@@ -296,6 +298,7 @@ submitMenuItem.addEventListener('click', confirmMenuItem)
 // Clear menu items list from step 2.
 function clearMenuItems() {
     list.innerHTML = "";
+    besideList.innerHTML = "";
     itemsArray = [];
 
 };
@@ -580,11 +583,19 @@ dayOfWeekModal.forEach(week => {
         let modalObject = []
 
            modalObject =  confirmedMenuCalendar.filter(getClickedDay)[0]
-          console.log(modalObject)
+    
+           if (modalObject == undefined) {
+            alert ('No menu created for this day')
+  return
+            
+        }
           let dayModalTitle = document.createElement('h1');
+       
+   
           dayModalTitle.textContent = `Menu for ${month} ${modalObject.day}:`
+          
           dayModalTitle.classList.add('day-modal-title')
-          dayModalText.appendChild(dayModalTitle)
+          dayModalText.appendChild(dayModalTitle) 
 
                 modalObject.menu.forEach(o=> {
                     let dayModalDiv = document.createElement('div');
@@ -613,14 +624,23 @@ dayOfWeekModal.forEach(week => {
           dayModalContainer.appendChild(dayModalText.cloneNode(true))
           dayModalContainer.classList.add('day-modal-container')
           console.log(dayModalContainer)
-          menuCalendar.appendChild(dayModalContainer);
-          menuCalendar.style.overflow = 'hidden';
-          for (let i=30; i <= menuCalendar.childNodes.length; i++)
-          {
-              if (menuCalendar.childNodes.length > 31) {
-                menuCalendar.childNodes[i].remove()
-              }
-          }
+
+         menuCalendar.addEventListener('click', function(e) {
+            // dayModalContainer.style.position = "absolute";
+            if (modalObject != undefined) {
+            dayModalContainer.style.left = e.x + '-20px';
+            dayModalContainer.style.top = e.y + '-20px';
+       
+            menuCalendar.appendChild(dayModalContainer);
+            menuCalendar.style.overflow = 'hidden'; }
+            for (let i=30; i <= menuCalendar.childNodes.length; i++)
+            {
+                if (menuCalendar.childNodes.length > 31) {
+                  menuCalendar.childNodes[i].remove()
+                }
+            }
+        });
+         
         return
         })
       
@@ -662,6 +682,7 @@ function getSaved() {
             //     item.qty = ''
             // }
             ingredient.innerHTML = `<b>${item.text}</b>  <i>quantity:</i>  ${item.qty} - <i>amount:</i> ${item.amt}`;
+
             confirmIngredients.appendChild(ingredient); }
             
     } else {
