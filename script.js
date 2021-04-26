@@ -1,4 +1,7 @@
-import {isWeekend,  getDayName} from "./date-helpers.js";
+import {
+    isWeekend,
+    getDayName
+} from "./date-helpers.js";
 
 // Menu item (name, type, time)
 const dishInput = document.querySelector('.dish-input');
@@ -10,6 +13,7 @@ let pendingItem = document.querySelector('.pending-item');
 let itemType = document.querySelector('.item-type');
 let itemTime = document.querySelector('.item-time');
 let menuItem = document.querySelector('.item');
+const layer = document.querySelector('.layer')
 let menuItemsArray = [];
 
 // Ingredients (incl. add btn, delete btn)
@@ -53,9 +57,9 @@ function createMenuItem(e) {
             menuItem.time = 'N/A'
         }
         // Reset inputs
-       dishInput.value = '';
-        typeInput.value ='';
-       timeInput.value ='';
+        dishInput.value = '';
+        typeInput.value = '';
+        timeInput.value = '';
         // Push new menu item to menuItemsArray
         if (!menuItemsArray[0]) {
             menuItemsArray.push(menuItem);
@@ -70,7 +74,7 @@ function createMenuItem(e) {
 }
 
 
-     // Append menu item info to pending item section (top of step 2)
+// Append menu item info to pending item section (top of step 2)
 function renderMenuItem(menuItem) {
     pendingItem.textContent = menuItem.name;
     itemType.textContent = menuItem.type
@@ -121,7 +125,8 @@ function renderIngredient(item) {
     const buttonsDiv = document.createElement('div');
     buttonsDiv.classList.add('buttons-div')
     const deleteBtn = document.createElement('li');
-    deleteBtn.innerHTML = '<i class="far fa-trash-alt delete"></i>'
+    deleteBtn.innerHTML = '<i class="far fa-trash-alt delete"></i>';
+    deleteBtn.classList.add('delete-button')
     ingredientName.textContent = item.text;
     ingredientName.classList.add('ingredient-item');
     qty.classList.add('quantity');
@@ -154,12 +159,11 @@ function renderIngredient(item) {
 
 // Create ingredient object/appends ingredients to step 2.
 function createIngredientObject() {
-    if (name1.textContent && pendingItem.textContent
-        ) {
-        alert ('Please delete menu item in step 3.');
+    if (name1.textContent && pendingItem.textContent) {
+        alert('Please delete menu item in step 3.');
         return
     }
-    
+
     if (itemInput.value) {
         let item = {
             text: itemInput.value,
@@ -171,14 +175,14 @@ function createIngredientObject() {
             item.qty = 'N/A'
         }
         // Reset step 2. inputs
-    //  itemInput.value  = '';
-      qtyInput.value  = '';
-       amtInput.value  = '';
+        //  itemInput.value  = '';
+        qtyInput.value = '';
+        amtInput.value = '';
         // push ingredients list to its own array
-        itemsArray.push(item);     
+        itemsArray.push(item);
         // Renders ingredients to step 2.
-        renderIngredient(item); 
-     
+        renderIngredient(item);
+
     } else {
         alert("If your ingredient is ' ', there's no need to add it to this list.")
     }
@@ -194,12 +198,12 @@ function confirmMenuItem() {
     }
 
     if (name1.textContent && pendingItem.textContent ||
-        list.textContent && confirmIngredients.textContent != '' ) {
-        alert ('Please delete menu item in step 3.');
+        list.textContent && confirmIngredients.textContent != '') {
+        alert('Please delete menu item in step 3.');
         return
     }
 
-// Append ingredients to step 3.
+    // Append ingredients to step 3.
     else if (pendingItem.textContent) {
 
         for (let item of itemsArray) {
@@ -212,10 +216,9 @@ function confirmMenuItem() {
             }
             if (name1.textContent && name1.textContent != menuItemsArray[0].name) {
 
-                newItemsArray = [];   
+                newItemsArray = [];
                 confirmIngredients.textContent = '';
-            }
-            else if(name1.textContent && name1.textContent == item.text) {
+            } else if (name1.textContent && name1.textContent == item.text) {
 
             }
 
@@ -224,7 +227,7 @@ function confirmMenuItem() {
             //     confirmIngredients.appendChild(ingredient);
             //     // Reset step 2. ingredient list
             //     list.textContent = '';
-              
+
             // }
             ingredient.innerHTML = `<b>${item.text}</b>  <i>quantity:</i>  ${item.qty} - <i>amount:</i> ${item.amt}`;
             confirmIngredients.appendChild(ingredient);
@@ -238,61 +241,58 @@ function confirmMenuItem() {
             console.log(newItemsArray[1])
 
         };
-        
+
 
         // Push menu item details to step 3.
         if (pendingItem.textContent === '' && name1.textContent && list.textContent) {
             name1.textContent = menuItemsArray[0].name;
             type.textContent = menuItemsArray[0].type;
             time.textContent = menuItemsArray[0].time;
-        }
-
-   
-    else if (pendingItem.textContent != menuItemsArray[0].name ||
-        itemType.textContent != menuItemsArray[0].type ||
-        itemTime.textContent != menuItemsArray[0].time) {
-        menuItemsArray = menuItemsArray.map(function() {
+        } else if (pendingItem.textContent != menuItemsArray[0].name ||
+            itemType.textContent != menuItemsArray[0].type ||
+            itemTime.textContent != menuItemsArray[0].time) {
+            menuItemsArray = menuItemsArray.map(function() {
                 const cont = {};
                 cont.name = pendingItem.textContent;
                 cont.type = itemType.textContent;
                 cont.time = itemTime.textContent;
                 cont.id = new Date().getTime();
                 return cont
-            }
-        )
-        name1.textContent = menuItemsArray[0].name;
-        type.textContent = menuItemsArray[0].type;
-        time.textContent = menuItemsArray[0].time;
-    } else {
-        name1.textContent = menuItemsArray[0].name;
-        type.textContent = menuItemsArray[0].type;
-        time.textContent = menuItemsArray[0].time;
+            })
+            name1.textContent = menuItemsArray[0].name;
+            type.textContent = menuItemsArray[0].type;
+            time.textContent = menuItemsArray[0].time;
+        } else {
+            name1.textContent = menuItemsArray[0].name;
+            type.textContent = menuItemsArray[0].type;
+            time.textContent = menuItemsArray[0].time;
 
-    }
-    // Reveal 'as' (actually 'for'..) and 'at' elements
-    as.classList.remove('hidden');
-    at.classList.remove('hidden');
+        }
+        // Reveal 'as' (actually 'for'..) and 'at' elements
+        as.classList.remove('hidden');
+        at.classList.remove('hidden');
 
-    // If step 3. name empty, on load populate name, type, time from array (taken from local storage)
-    if (name1.textContent == '') {
-        name1.textContent = menuItemsArray[0].name;
-        type.textContent = menuItemsArray[0].type;
-        time.textContent = menuItemsArray[0].time;
+        // If step 3. name empty, on load populate name, type, time from array (taken from local storage)
+        if (name1.textContent == '') {
+            name1.textContent = menuItemsArray[0].name;
+            type.textContent = menuItemsArray[0].type;
+            time.textContent = menuItemsArray[0].time;
 
-       
-    }
-   pendingItem.textContent = '';
+
+        }
+        pendingItem.textContent = '';
         itemType.textContent = '';
         itemTime.textContent = '';
         editItemButton.classList.add('hidden');
 
         console.log(menuItemsArray)
-    // Add menu item + ingredients to local storage (to be retrieved step 3.). 
+        // Add menu item + ingredients to local storage (to be retrieved step 3.). 
 
-    localStorage.setItem("menuitemlist", JSON.stringify(menuItemsArray));
-    // Set ingredients array to empty
+        localStorage.setItem("menuitemlist", JSON.stringify(menuItemsArray));
+        // Set ingredients array to empty
 
-} }
+    }
+}
 submitMenuItem.addEventListener('click', confirmMenuItem)
 
 // Clear menu items list from step 2.
@@ -308,16 +308,16 @@ clearItemBtn.addEventListener('click', clearMenuItems);
 
 // Delete menu item, ingredients and localstorage for step 3.
 function deleteMenuItem() {
-    localStorage.removeItem("menuitemlist");   
-    localStorage.removeItem("mylist");   
-    console.log(    localStorage.getItem("mylist"));  
+    localStorage.removeItem("menuitemlist");
+    localStorage.removeItem("mylist");
+    console.log(localStorage.getItem("mylist"));
     confirmIngredients.textContent = '';
     name1.textContent = '';
     type.textContent = '';
     time.textContent = '';
     as.classList.add('hidden');
     at.classList.add('hidden');
-    
+
 }
 
 delete1.addEventListener('click', deleteMenuItem)
@@ -327,22 +327,24 @@ addItemBtn.addEventListener('click', createIngredientObject);
 
 // Create Small Calendar
 const today = new Date();
-const month = today.toLocaleString('en-EN', { month: 'long' });
-const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+const month = today.toLocaleString('en-EN', {
+    month: 'long'
+});
+const date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
 const calendarTitle = document.querySelector('.todays-date');
 calendarTitle.innerHTML = `Today's date: ${date}`;
 
 const calendar = document.querySelector("#app-calendar");
 
 function daysInThisMonth() {
-    return new Date(today.getFullYear(), today.getMonth()+1, 0).getDate();
-  }
+    return new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
+}
 
 for (let day = 1; day <= daysInThisMonth(); day++) {
-   
+
     const weekend = isWeekend(day);
     let name = "";
-    if(day <= 7) {
+    if (day <= 7) {
         const dayName = getDayName(day);
         name = `<div class ="name">${dayName}</div>`;
 
@@ -365,25 +367,28 @@ modalDate.innerHTML = `Today's date: ${date}`;
 
 
 for (let day = 1; day <= daysInThisMonth(); day++) {
-   
+
     const weekend = isWeekend(day);
     let name = "";
-    if(day <= 7) {
+    if (day <= 7) {
         const dayName = getDayName(day);
         name = `<div class ="name">${dayName}</div>`;
     }
     menuCalendar.insertAdjacentHTML("beforeend", `<div class="modal-week ${weekend ? "weekend" : ""}">
  <div class ="name">${name}</div> <div class="day">${day}</div></div>`);
 }
- 
+
 // Show Large Calendar Modal
 function showModal() {
-menuCalendarContainer.classList.toggle('show-modal');
+    menuCalendarContainer.classList.toggle('show-modal');
+    layer.style.overflow = 'hidden';
+
 }
 
 // Close modal calendar
 function closeModal() {
     menuCalendarContainer.classList.toggle('show-modal');
+    layer.style.overflow = 'visible';
 }
 
 // Open/close calendar modal event listeners 
@@ -391,24 +396,25 @@ openCalendarBtn.addEventListener('click', showModal);
 closeCalendarBtn.addEventListener('click', closeModal);
 
 let dayOfWeek = document.querySelectorAll('.week');
-let dayOfWeekModal  = document.querySelectorAll('.modal-week');
+let dayOfWeekModal = document.querySelectorAll('.modal-week');
 
 const week = document.querySelector('.week');
 const submitToCalendarBtn = document.querySelector('#submit');
 
 function createBigCalendar() {
-dayOfWeek.forEach(week => {
-week.addEventListener('click', event => {
-    let crossed = event.currentTarget;
-    // Day # of clicked element on small calendar
-    let crossed3 = event.currentTarget.children[1].textContent
-    // Makes  array of all day #s from large calendar; finds day# with same # as clicked element on small calendar
-    let crossed2 = Array.from(document.querySelectorAll('.modal-week .day')).filter(day => day.textContent == crossed3)[0];
-    // crossed2.parentElement.classList.toggle('crossout')
+    dayOfWeek.forEach(week => {
+        week.addEventListener('click', event => {
+            let crossed = event.currentTarget;
+            // Day # of clicked element on small calendar
+            let crossed3 = event.currentTarget.children[1].textContent
+            // Makes  array of all day #s from large calendar; finds day# with same # as clicked element on small calendar
+            let crossed2 = Array.from(document.querySelectorAll('.modal-week .day')).filter(day => day.textContent == crossed3)[0];
+            // crossed2.parentElement.classList.toggle('crossout')
 
-crossed.classList.toggle('crossout');
+            crossed.classList.toggle('crossout');
 
- })})
+        })
+    })
 }
 
 // On load create big calendar
@@ -416,73 +422,81 @@ createBigCalendar()
 
 // Check if any days of week contain 'crossout' class
 function isCrossout() {
-    Array.from(dayOfWeek).some(day =>{ 
-        
+    Array.from(dayOfWeek).some(day => {
+
         return day.classList.contains('crossout') === true
-    })}
+    })
+}
 
 // Append to calendar, takes calendar days as paramter
-function submitToCalendar (daysOfMonth) {
+function submitToCalendar(daysOfMonth) {
 
     if (!name1.textContent) {
         alert('Please complete step 1 and 2.');
         return
     }
 
-   if (isCrossout()) {
-    alert("Please select a calendar day.")
-    return
-   }
-   
-   else if (!isCrossout()) {
+    if (isCrossout()) {
+        alert("Please select a calendar day.")
+        return
+    } else if (!isCrossout()) {
 
-        daysOfMonth.forEach(day => { 
-          
-            if (day.classList.contains('crossout') ) {
-               let a = document.createElement('a');
-             
-               a.classList.add('legend');
-            if (type.textContent == 'breakfast') {
-                a.innerHTML = `<a  id="breakfast" class="legend"></a>`; }
-            else if(type.textContent == 'lunch') {
-                a.innerHTML = `<a  id="lunch" class="legend"></a>`; }
-                else if(type.textContent == 'dinner') {
-                    a.innerHTML = `<a  id="dinner" class="legend"></a>`; }
-                    else if(type.textContent == 'snack') {
-                        a.innerHTML = `<a  id="snack" class="legend"></a>`; }
-                        else if(type.textContent == 'other') {
-                            a.innerHTML = `<a  id="other" class="legend"></a>`; }
-                            day.appendChild( a);
-               let daynum = day.children[1].textContent;
-                    
-               if (daysOfMonth === dayOfWeek) {
-                console.log(daysOfMonth, dayOfWeek)   
-                createMenuObject(daynum, a) }
+        daysOfMonth.forEach(day => {
+
+            if (day.classList.contains('crossout')) {
+                let a = document.createElement('a');
+
+                a.classList.add('legend');
+                if (type.textContent == 'breakfast') {
+                    a.innerHTML = `<a  id="breakfast" class="legend"></a>`;
+                } else if (type.textContent == 'lunch') {
+                    a.innerHTML = `<a  id="lunch" class="legend"></a>`;
+                } else if (type.textContent == 'dinner') {
+                    a.innerHTML = `<a  id="dinner" class="legend"></a>`;
+                } else if (type.textContent == 'snack') {
+                    a.innerHTML = `<a  id="snack" class="legend"></a>`;
+                } else if (type.textContent == 'other') {
+                    a.innerHTML = `<a  id="other" class="legend"></a>`;
+                }
+                day.appendChild(a);
+                let daynum = day.children[1].textContent;
+
+                if (daysOfMonth === dayOfWeek) {
+                    console.log(daysOfMonth, dayOfWeek)
+                    createMenuObject(daynum, a)
+                }
 
                 let largeCalendarArray = Array.from(document.querySelectorAll('.modal-week .day'))
-       
-                largeCalendarArray.forEach(p=> {
+
+                largeCalendarArray.forEach(p => {
                     console.log(p.childNodes[0].textContent)
                     if (daynum == p.childNodes[0].textContent) {
-                 const li = document.createElement('li');
-                              confirmedMenuCalendar.forEach(item => {
-                                 if  (item.day == day.children[1].textContent) {
-                                     item.menu.forEach(i=> {
-                                        li.textContent = `${i.name} for ${i.type}` })}})
-                              p.appendChild(a.cloneNode(true));
-                              p.appendChild(li); 
-                             }
+                        const li = document.createElement('li');
+                        confirmedMenuCalendar.forEach(item => {
+                            if (item.day == day.children[1].textContent) {
+                                item.menu.forEach(i => {
+                                    li.textContent = `${i.name} for ${i.type}`
+                                })
+                            }
+                        })
+                        p.appendChild(a.cloneNode(true));
+                        p.appendChild(li);
+                    }
                 })
                 day.classList.toggle('crossout');
 
-                    }   
-             }) 
-} }
+            }
+        })
+    }
+}
 // Submit 'legend dots' to small and large calendars 
-submitToCalendarBtn.addEventListener('click', () =>  {submitToCalendar(dayOfWeek);})
-submitToCalendarBtn.addEventListener('click', () =>  {submitToCalendar(dayOfWeekModal)
-    ;})
-let confirmedMenuItem = {}; 
+submitToCalendarBtn.addEventListener('click', () => {
+    submitToCalendar(dayOfWeek);
+})
+submitToCalendarBtn.addEventListener('click', () => {
+    submitToCalendar(dayOfWeekModal);
+})
+let confirmedMenuItem = {};
 
 // Change key name of ingredient objects
 const clone = (obj) => Object.assign({}, obj);
@@ -490,190 +504,200 @@ const renameKey = (object, key, newKey) => {
     const clonedObj = clone(object);
     const targetKey = clonedObj[key];
     delete clonedObj[key];
-  
+
     clonedObj[newKey] = targetKey;
     return clonedObj;
-  
-  };
- 
-  let confirmedMenuCalendar = [];
+
+};
+
+let confirmedMenuCalendar = [];
 // ******
 // Create menu object for each calendar date, push to local storage
 function createMenuObject(daynum, anchor) {
-    if (JSON.parse(localStorage.getItem("confirmedmenu")) ) {
-        confirmedMenuCalendar = JSON.parse(localStorage.getItem("confirmedmenu")); }
+    if (JSON.parse(localStorage.getItem("confirmedmenu"))) {
+        confirmedMenuCalendar = JSON.parse(localStorage.getItem("confirmedmenu"));
+    }
     // create the object and assign proeprties from menu item
 
-    for(let propt in confirmedMenuItem){
+    for (let propt in confirmedMenuItem) {
         if (isNaN(propt)) {
-            confirmedMenuItem =  renameKey(confirmedMenuItem, `${propt}`, undefined)
-        }}
-    confirmedMenuItem = Object.assign(confirmedMenuItem,  newItemsArray, menuItemsArray[0])
-    // for(let propt in confirmedMenuItem){
-    //     console.log( propt.indexOf('ingredient') )
-    //     if (propt.indexOf('ingredient') === 0 ){
-    //         confirmedMenuItem =  renameKey(confirmedMenuItem, `${propt}`, '')
-    //         console.log(propt)
+            confirmedMenuItem = renameKey(confirmedMenuItem, `${propt}`, undefined)
+        }
+    }
+    confirmedMenuItem = Object.assign(confirmedMenuItem, newItemsArray, menuItemsArray[0])
 
-    // } }
-console.log(confirmedMenuItem)
-     for(let propt in confirmedMenuItem){
+    console.log(confirmedMenuItem)
+    for (let propt in confirmedMenuItem) {
         //  console.log(confirmedMenuItem)
         //  console.log('zaza' + propt)
         if (!isNaN(propt)) {
-           confirmedMenuItem =  renameKey(confirmedMenuItem, `${propt}`, `ingredient ${(propt + 1)}`)
-          }
+            confirmedMenuItem = renameKey(confirmedMenuItem, `${propt}`, `ingredient ${(propt + 1)}`)
         }
-        confirmedMenuItem.legend = anchor.innerHTML;
-        // Find days which are already elements in days array
-        let existingDay = confirmedMenuCalendar.filter(i => {console.log(i.day == daynum);
-            return i.day == daynum })
-            // If there is no existing day in confirmedMenuCalendar array for the selected calendar day
-                    if (existingDay == '') {
-            console.log(existingDay == '' )
-            // Create day object, push
-        let obj= {day: `${daynum}`, menu: []}
+    }
+    confirmedMenuItem.legend = anchor.innerHTML;
+    // Find days which are already elements in days array
+    let existingDay = confirmedMenuCalendar.filter(i => {
+        console.log(i.day == daynum);
+        return i.day == daynum
+    })
+    // If there is no existing day in confirmedMenuCalendar array for the selected calendar day
+    if (existingDay == '') {
+        console.log(existingDay == '')
+        // Create day object, push
+        let obj = {
+            day: `${daynum}`,
+            menu: []
+        }
         // Push menu item to 'menu' for selected calendar day
         obj.menu.push(confirmedMenuItem);
         // Push 'day' to 'confirmedMenuCalendar' array
         console.log(obj)
-        confirmedMenuCalendar.push(obj) 
-                console.log(confirmedMenuCalendar)
-                
-                localStorage.setItem("confirmedmenu", JSON.stringify(confirmedMenuCalendar));
+        confirmedMenuCalendar.push(obj)
+        console.log(confirmedMenuCalendar)
 
-                    } 
-                    // If 'day' object already exists for calendar day, just push menu item to existing day
-                     else {
-                        existingDay[0].menu.push(confirmedMenuItem);
+        localStorage.setItem("confirmedmenu", JSON.stringify(confirmedMenuCalendar));
 
-                        console.log((existingDay[0].menu) )
-                        console.log(confirmedMenuCalendar)
-                        localStorage.setItem("confirmedmenu", JSON.stringify(confirmedMenuCalendar));
+    }
+    // If 'day' object already exists for calendar day, just push menu item to existing day
+    else {
+        existingDay[0].menu.push(confirmedMenuItem);
 
-                 }  
+        console.log((existingDay[0].menu))
+        console.log(confirmedMenuCalendar)
+        localStorage.setItem("confirmedmenu", JSON.stringify(confirmedMenuCalendar));
+
+    }
 }
 
 
 // Create modal when day clicked on large calendar
 function createDayModal() {
-if (menuCalendar.childNodes[30])
-{ 
-    menuCalendar.childNodes[30].remove}
-      
-let dayModalContainer = document.createElement('div');
+    if (menuCalendar.childNodes[30]) {
+        menuCalendar.childNodes[30].remove
+    }
 
-let dayModalText = document.createElement('div');
+    let dayModalContainer = document.createElement('div');
 
-let largeCalendarArray = Array.from(document.querySelectorAll('.modal-week .day'))
+    let dayModalText = document.createElement('div');
 
-dayOfWeekModal.forEach(week => {
-    week.addEventListener('click', event => {
-        let clicked = event.currentTarget.children[1].textContent;
-       function getClickedDay(i) {
+    let largeCalendarArray = Array.from(document.querySelectorAll('.modal-week .day'))
 
-        if (clicked.charAt(1) && i.day == `${clicked.charAt(0)}${clicked.charAt(1)}`) {
-            return i.day == `${clicked.charAt(0)}${clicked.charAt(1)}`
-        }
-        else {
-     return i.day == clicked.charAt(0)}
+    dayOfWeekModal.forEach(week => {
+        week.addEventListener('click', function something(event) {
+            let clicked = event.currentTarget.children[1].textContent;
 
-        }
-   
-        let modalObject = []
+            function getClickedDay(i) {
 
-           modalObject =  confirmedMenuCalendar.filter(getClickedDay)[0]
-    
-           if (modalObject == undefined) {
-            alert ('No menu created for this day')
-  return
-            
-        }
-          let dayModalTitle = document.createElement('h1');
-       
-   
-          dayModalTitle.textContent = `Menu for ${month} ${modalObject.day}:`
-          
-          dayModalTitle.classList.add('day-modal-title')
-          dayModalText.appendChild(dayModalTitle) 
+                if (clicked.charAt(1) && i.day == `${clicked.charAt(0)}${clicked.charAt(1)}`) {
+                    return i.day == `${clicked.charAt(0)}${clicked.charAt(1)}`
+                } else {
+                    return i.day == clicked.charAt(0)
+                }
 
-                modalObject.menu.forEach(o=> {
+            }
+
+            let modalObject = []
+
+            modalObject = confirmedMenuCalendar.filter(getClickedDay)[0]
+
+
+
+            let dayModalTitle = document.createElement('h1');
+            if (modalObject == undefined) {
+                dayModalTitle.textContent = "No menu created for this day.";
+                dayModalText.appendChild(dayModalTitle)
+
+            } else {
+                dayModalTitle.textContent = `Menu for ${month} ${modalObject.day}:`;
+                dayModalTitle.classList.add('day-modal-title')
+                dayModalText.appendChild(dayModalTitle)
+
+                modalObject.menu.forEach(o => {
                     let dayModalDiv = document.createElement('div');
+
                     dayModalDiv.classList.add('day-modal-item');
                     dayModalDiv.innerHTML = `<span class="menu-item-ingredient">${o.name}</span> <i>for</i> 
-                    <span class="menu-item-ingredient">${o.type}</span><i> at</i> <span class="menu-item-ingredient">${o.time}</span> 
-                     <br><br> <h3 class="ingredients">Ingredients:</h3> `
-                            for (let [i, q] of Object.entries(o)) {
+          <span class="menu-item-ingredient">${o.type}</span><i> at</i> <span class="menu-item-ingredient">${o.time}</span> 
+           <br><br> <h3 class="ingredients">Ingredients:</h3> `
+                    for (let [i, q] of Object.entries(o)) {
 
-                                  if( i.includes('ingredient')) {
-                                    let ingredient = document.createElement('li');
-                                    ingredient.textContent= q.text;
-                                   dayModalDiv.appendChild(ingredient)
-                               
-                                   } } 
-                dayModalText.appendChild(dayModalDiv)
-               
-          })
-          let closeDayModalBtn = document.createElement('button');
-          closeDayModalBtn.setAttribute('id', 'close-day-modal');
-            
-          closeDayModalBtn.textContent= 'Close';
+                        if (i.includes('ingredient')) {
+                            let ingredient = document.createElement('li');
+                            ingredient.textContent = q.text;
+                            dayModalDiv.appendChild(ingredient)
 
-          dayModalText.appendChild(closeDayModalBtn)
-          dayModalText.classList.add('day-modal')
-          dayModalContainer.appendChild(dayModalText.cloneNode(true))
-          dayModalContainer.classList.add('day-modal-container')
-          console.log(dayModalContainer)
+                        }
+                    }
+                    dayModalText.appendChild(dayModalDiv)
 
-         menuCalendar.addEventListener('click', function(e) {
-            // dayModalContainer.style.position = "absolute";
-            if (modalObject != undefined) {
-            dayModalContainer.style.left = e.x + '-20px';
-            dayModalContainer.style.top = e.y + '-20px';
-       
-            menuCalendar.appendChild(dayModalContainer);
-            menuCalendar.style.overflow = 'hidden'; }
-            for (let i=30; i <= menuCalendar.childNodes.length; i++)
-            {
-                if (menuCalendar.childNodes.length > 31) {
-                  menuCalendar.childNodes[i].remove()
-                }
+                })
             }
-        });
-         
-        return
+
+
+            let closeDayModalBtn = document.createElement('button');
+            closeDayModalBtn.setAttribute('id', 'close-day-modal');
+
+            closeDayModalBtn.textContent = 'Close';
+
+            dayModalText.appendChild(closeDayModalBtn)
+            dayModalText.classList.add('day-modal')
+            dayModalContainer.appendChild(dayModalText.cloneNode(true))
+            dayModalContainer.classList.add('day-modal-container')
+            console.log(dayModalContainer)
+
+            menuCalendar.addEventListener('click', function(e) {
+                // dayModalContainer.style.position = "absolute";
+
+
+                menuCalendar.appendChild(dayModalContainer);
+                menuCalendar.style.overflow = 'hidden';
+                for (let i = 30; i <= menuCalendar.childNodes.length; i++) {
+                    if (menuCalendar.childNodes.length > 31) {
+                        menuCalendar.childNodes[i].remove()
+                    }
+                }
+            });
+
+            return
         })
-      
+
     })
-    
+
 }
 
-document.addEventListener('click',function(e){
-    if(e.target && e.target.id== 'close-day-modal'){
-          menuCalendar.childNodes[30].remove();
-          menuCalendar.style.overflow = 'visible';
-     }
-     return
+document.addEventListener('click', function(e) {
+    if (e.target && e.target.id == 'close-day-modal') {
+        menuCalendar.childNodes[30].remove();
+    }
+    return
 
- });
+});
+
 
 
 dayOfWeekModal.forEach(week => {
-    week.addEventListener('click', createDayModal) })
 
- 
-function resetFields () {
-    itemInput.value  = '';
-      qtyInput.value  = '';
-       amtInput.value  = '';
+
+    week.addEventListener('click', createDayModal);
+
+
+
+})
+
+
+
+function resetFields() {
+    itemInput.value = '';
+    qtyInput.value = '';
+    amtInput.value = '';
 }
 // Get everything from local storage
 // Get ingredient list from local storage
 function getSaved() {
 
-    if ( localStorage.getItem("mylist")) {
-      newItemsArray = JSON.parse(localStorage.getItem("mylist"));
-      console.log(newItemsArray)
+    if (localStorage.getItem("mylist")) {
+        newItemsArray = JSON.parse(localStorage.getItem("mylist"));
+        console.log(newItemsArray)
         for (let item of newItemsArray) {
             let ingredient = document.createElement('li');
             // if (item.amt === 'N/A') {
@@ -683,8 +707,9 @@ function getSaved() {
             // }
             ingredient.innerHTML = `<b>${item.text}</b>  <i>quantity:</i>  ${item.qty} - <i>amount:</i> ${item.amt}`;
 
-            confirmIngredients.appendChild(ingredient); }
-            
+            confirmIngredients.appendChild(ingredient);
+        }
+
     } else {
         console.log('Nothing saved in local storage for step 3.')
     }
@@ -699,54 +724,54 @@ function getSaved1() {
         time.textContent = menuItemsArray[0].time;
         as.classList.remove('hidden');
         at.classList.remove('hidden');
-        
+
     }
 }
 
 // Get 'legend' (dots indicating menu items on calendars) from local storage
 function getSaved2() {
     console.log(JSON.parse(localStorage.getItem("confirmedmenu")))
-    if (JSON.parse(localStorage.getItem("confirmedmenu")) ) {
-    confirmedMenuCalendar = JSON.parse(localStorage.getItem("confirmedmenu"));
-   console.log(confirmedMenuCalendar)
+    if (JSON.parse(localStorage.getItem("confirmedmenu"))) {
+        confirmedMenuCalendar = JSON.parse(localStorage.getItem("confirmedmenu"));
+        console.log(confirmedMenuCalendar)
 
-    confirmedMenuCalendar.forEach(item => {
-             dayOfWeek.forEach(dd => {
-              if  (item.day == dd.children[1].textContent) {
-                  item.menu.forEach(i=> {
-                const a = document.createElement('a');
-                a.classList.add('legend');
-                a.innerHTML = i.legend
-                dd.appendChild(a);
-                let largeCalendarArray = Array.from(document.querySelectorAll('.modal-week .day'))
-
-                  largeCalendarArray.forEach(p=> {
-                    // console.log(p.childNodes[0].textContent, dd.children[1].textContent)
-
-                      if (p.childNodes[0].textContent == dd.children[1].textContent) {
+        confirmedMenuCalendar.forEach(item => {
+            dayOfWeek.forEach(dd => {
+                if (item.day == dd.children[1].textContent) {
+                    item.menu.forEach(i => {
                         const a = document.createElement('a');
-                       
                         a.classList.add('legend');
                         a.innerHTML = i.legend
-                      p.appendChild(a)
-                      const li = document.createElement('li');
-                      li.textContent =`${i.name} for ${i.type}`
-                      p.appendChild(li);
-            
-                    }  })
-            }) }
+                        dd.appendChild(a);
+                        let largeCalendarArray = Array.from(document.querySelectorAll('.modal-week .day'))
+
+                        largeCalendarArray.forEach(p => {
+                            // console.log(p.childNodes[0].textContent, dd.children[1].textContent)
+
+                            if (p.childNodes[0].textContent == dd.children[1].textContent) {
+                                const a = document.createElement('a');
+
+                                a.classList.add('legend');
+                                a.innerHTML = i.legend
+                                p.appendChild(a)
+                                const li = document.createElement('li');
+                                li.textContent = `${i.name} for ${i.type}`
+                                p.appendChild(li);
+
+                            }
+                        })
+                    })
+                }
             })
-          }) }}
-
-  function getSaved4() {
-
-  }
+        })
+    }
+}
 
 // On load, get everything from local storage
 getSaved();
 getSaved1();
 getSaved2();
-resetFields ()
+resetFields()
 
 // Delete all menu items from calendar/local storage
 function deleteCalendar() {
