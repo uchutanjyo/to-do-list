@@ -580,6 +580,7 @@ function createDayModal() {
             let modalObject = []
 
             if (confirmedMenuCalendar.filter(getClickedDay).length > 1) { 
+                console.log(confirmedMenuCalendar.filter(getClickedDay))
             modalObject = confirmedMenuCalendar.filter(getClickedDay)[1]
         } else {
             modalObject = confirmedMenuCalendar.filter(getClickedDay)[0]
