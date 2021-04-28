@@ -569,10 +569,16 @@ function createDayModal() {
             function getClickedDay(i) {
 
                 if (clicked.charAt(1) && i.day == `${clicked.charAt(0)}${clicked.charAt(1)}`) {
-                    console.log(i.day === `${clicked.charAt(0)}${clicked.charAt(1)}`)
                     return i.day == `${clicked.charAt(0)}${clicked.charAt(1)}`
-                } else {
-                    return i.day == clicked.charAt(0)
+     
+                }
+         else if (isNaN(clicked.charAt(1)) == true && i.day == clicked.charAt(0)) {
+            return i.day == clicked.charAt(0)
+
+
+        }
+                else {
+                    return undefined 
                 }
 
             }
@@ -580,14 +586,12 @@ function createDayModal() {
             let modalObject = []
 
             if (confirmedMenuCalendar.filter(getClickedDay).length > 1) { 
-                console.log(confirmedMenuCalendar.filter(getClickedDay))
             modalObject = confirmedMenuCalendar.filter(getClickedDay)[1]
         } else {
             modalObject = confirmedMenuCalendar.filter(getClickedDay)[0]
         }
 
 
-            console.log(confirmedMenuCalendar.filter(getClickedDay))
 
             let dayModalTitle = document.createElement('h1');
             if (modalObject == undefined) {
