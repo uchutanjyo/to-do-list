@@ -5,7 +5,7 @@ html {
 }
 
 body {
-  margin: 0;
+  margin: -10;
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-image: url(food.jpg);
@@ -14,189 +14,6 @@ body {
   height: 100%;
   font-family: "Playfair Display";
 
-}
-
-/* CALENDAR-MODAL */
-.modal-container {
-  background: rgba(0, 0, 0, 0.9);
-  display: flex;
-  justify-content: center;
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  overflow-y: auto;
-  height: 96v;
-margin-top: 2em;
-  margin-bottom: 1em;
-  margin-left: 1em;
-  margin-right: 1em;
-
-}
-
-.show-modal {
-  display: flex;
-
-}
-
-.modal {
-  width: 95vw;
-  animation: modalopen 2s;
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  grid-template-rows: repeat(5, 1fr);
-  grid-gap: 1px 1px;
-  border: 1px dotted;
-  margin-bottom: 3em;
-  margin-top: 1em;
-  margin-left: 1em;
-
-}
-
-.modal-header {
-  background-color: rgb(40, 46, 46);
-
-  color: rgb(216, 59, 208);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-size: 2em;
-max-width: 25%;
-margin: 1em;
-height: 95vh
-
-
-}
-.modal-date {
-  color: rgb(216, 59, 208);
-  margin-left: 40px;
-  margin-top: 2em;
-}
-
-.modal-info {
-  margin-left: 30px;
-  color: rgb(126, 25, 122);
-  padding: 1em;
-}
-
-.close button {
-  color: rgb(192, 49, 173);
-  background-color: black;
-width: auto;
-  font-size: 1em;
-margin: 2em
-
-}
-
-.modal-week {
-  background-color: rgb(134, 177, 175);
-  font-size: 20px;
-  cursor: pointer;
-  transition: ease-in 0.3s;
-  padding: 5px;
-  border: 1px dotted;
-  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
-  height: 150px;
-  max-width: 150px;
-  display: flex;
-  flex-direction: column;
-  overflow-y: auto;
-}
-
-.modal-week .day {
-  display: flex;
-  flex-direction: column;
-}
-
-.modal-week .items {
-  display: flex;
-  flex-direction: column;
-}
-
-/* Day Modal */
-
-.modal-open {
-  overflow: hidden;
-}
-
-.day-modal-container {
-  background: rgba(126, 25, 122, 0.9);
-  
-display: inline-block;
-  overflow-y: auto;
-  width: 40vw;
-  height: auto;
-  max-height: 70vh;
-  position: fixed;
-  z-index: 10;
-  animation: modalopen 1s;
-  border-radius: 10%;
-
-  padding-bottom: 3em;
-}
-
-.day-modal {
-  margin-left: 3em;
-  margin-bottom: 1em;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 80%;
-height: auto;
-overflow-y: auto;
-
-  border: 1px dotted;
-  
-}
-
-.day-modal h3 {
-  text-decoration: underline;
-}
-
-.day-modal-item {
-  margin-top: 40px;
-  margin-bottom: 10px;
-  border-bottom: 1px solid red;
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-  color: whitesmoke;
-}
-
-.day-modal-title {
-  color: deeppink;
-  margin-top : 20px;
-
-}
-
-.menu-item-ingredient {
-  color: black;
-  text-decoration: underline;
-  text-decoration-style: dotted;
-}
-
-#close-day-modal {
-  margin-top: 15px;
-}
-
-/* large calendar list items */
-
-
-.modal-week li {
-  color: black;
-  margin-left: 10px;
-  padding: 5px;
-}
-
-@keyframes modalopen {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
 }
 
 .layer {
@@ -215,7 +32,7 @@ overflow-y: auto;
   font-size: 20px;
   border: 1px solid black;
   margin-top: 5px;
-  color: rgb(202, 117, 198);
+  color: rgb(211, 41, 11);
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
   text-align: center;
   letter-spacing: 10px;
@@ -291,7 +108,7 @@ h2 {
 }
 
 .pending-item {
-  color: rgb(216, 59, 208);
+  color: rgb(203, 44, 44);
   font-family: fantasy;
   font-size: 1em;
   margin-right: 10px;
@@ -356,9 +173,17 @@ left: 2em
 
 }
 
+button {
+  cursor: pointer
+}
+
+button:hover {
+  opacity: 80%;
+}
+
 li {
   font-size: 1em;
-  color: rgb(202, 117, 198);
+  color: rgb(15, 15, 15);
   font-weight: bold;
   list-style: none;
   list-style-position: inside;
@@ -368,7 +193,7 @@ li {
 .ingredient-item {
   font-size: 20px;
   letter-spacing: 1px;
-  color: rgb(202, 117, 198);
+  color: rgb(211, 41, 11);
   overflow-x: auto;
   overflow-wrap: break-word;
   width: 130px;
@@ -391,30 +216,38 @@ li {
 .buttons1 {
   display: flex;
   align-items: center;
-  width: 160px;
+  display: flex;
+align-items: center;
+}
+
+.buttons1 button {
+  background-color: rgba(30, 30, 70, 0.7);
+  color: white;
 }
 
 .add-item {
   text-decoration: none;
+  max-height: 3em;
+
   margin-right: 10px;
   margin-left: 20px;
   margin-top: 10px;
-  background-color: rgba(30, 30, 70, 0.7);
-  color: white;
+
 }
 
 .clear {
   text-decoration: none;
+  max-height: 3em;
+
   margin-right: 10px;
   margin-left: 5px;
   margin-top: 10px;
-  background-color: rgba(30, 30, 70, 0.7);
-  color: white;
+
 }
 
 #submit-item {
-  background-color: rgba(30, 30, 70, 0.7);
-  color: white;
+  max-height: 3em;
+  width: 6em;
 }
 
 #ingredient-stock {
@@ -497,12 +330,9 @@ label {
   text-align: center;
 }
 
-.delete {
 
-
-}
 .select {
-  background-color: rgba(76, 76, 207, 0.4);
+  background-color: rgba(11, 11, 167, 0.4);
   color: white;
 
   width: 40px;
@@ -580,7 +410,7 @@ label {
 }
 
 #name {
-  color: rgb(202, 117, 198);
+  color: rgb(41, 39, 41);
   font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
   font-size: 30px;
   margin-right: 10px;
@@ -608,7 +438,7 @@ label {
 }
 
 #ingredient-name {
-  color: rgb(255, 221, 254);
+  color: rgb(68, 29, 67);
   font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
   font-size: 1em;
   text-transform: uppercase;
@@ -635,7 +465,7 @@ padding: 10px;
 }
 
 .item-text {
-    color:rgb(202, 117, 198)
+    color:rgb(44, 46, 46)
 }
 
 .ingredients-list {
@@ -678,7 +508,7 @@ width: 150px
   text-align: center;
   font-size: 15px;
   padding: 10px;
-  background-color: rgba(76, 76, 207, 0.4);
+  background-color: rgba(115, 117, 114, 0.4);
 }
 #app-calendar {
   display: grid;
@@ -689,7 +519,7 @@ width: 150px
 }
 
 .week {
-  background-color: rgb(134, 177, 175);
+  background-color: rgb(172, 118, 108);
   font-size: 20px;
   cursor: pointer;
   transition: ease-in 0.3s;
@@ -714,7 +544,7 @@ width: 150px
 }
 
 .weekend {
-  background-color: khaki;
+  background-color: rgb(28, 121, 4);
 }
 
 .weekend:hover {
@@ -873,10 +703,6 @@ justify-content: center;
 
                     }
 
-                      /* #bottom-form-container span:nth-child(3){
-                        margin-right: 0px;
-                      } */
-
                       #bottom-form-container span{
                         margin-right: 12px;
                         margin-left: 0px
@@ -889,12 +715,6 @@ justify-content: center;
                         padding-top: 3em;
                         padding-bottom: 3em;
 
-                      }
-
-                      
-
-                      .day-modal-text {
-                     
                       }
 
 
@@ -928,7 +748,6 @@ justify-content: center;
 
     .buttons1 button{
     font-size: 10px;
-    overflow:unset;
     min-width: 70px;
     max-width: 80px;
     }
@@ -997,4 +816,172 @@ margin: 1em
 
     }
     
+}
+
+
+/* CALENDAR-MODAL */
+.modal-container {
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  justify-content: center;
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow-y: auto;
+  height: 96v;
+margin-top: 2em;
+  margin-bottom: 1em;
+  margin-left: 1em;
+  margin-right: 1em;
+  color: black;
+
+
+}
+
+.show-modal {
+  display: flex;
+
+}
+
+.modal {
+  width: 95vw;
+  animation: modalopen 2s;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  grid-gap: 1px 1px;
+  border: 1px dotted;
+  margin-bottom: 3em;
+  margin-top: 1em;
+  margin-left: 1em;
+
+}
+
+.modal-header {
+  background-color: rgb(40, 46, 46);
+
+  color: rgb(206, 106, 88);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 2em;
+max-width: 15%;
+margin: 1em;
+height: 95vh
+
+
+}
+.modal-date {
+  color: rgb(206, 106, 88);
+  margin-left: 40px;
+  margin-top: 2em;
+}
+
+.modal-info {
+  margin-left: 30px;
+  color: rgb(206, 106, 88);
+  padding: 1em;
+}
+
+.close button {
+  color: rgb(206, 106, 88);
+  background-color: black;
+width: auto;
+  font-size: 1em;
+margin: 2em
+
+}
+
+.modal-week {
+  background-color: rgb(206, 106, 88);
+  font-size: 20px;
+  cursor: pointer;
+  transition: ease-in 0.3s;
+  padding: 5px;
+  border: 1px dotted;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  height: 150px;
+  max-width: 200px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.modal-week .day {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-week .items {
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* Day Modal */
+
+.modal-open {
+  overflow: hidden;
+}
+
+.day-modal-container {
+  background: rgb(211, 41, 11);
+  
+display: inline-block;
+  overflow-y: auto;
+  width: 40vw;
+  height: auto;
+  max-height: 70vh;
+  position: fixed;
+  z-index: 10;
+  animation: modalopen 1s;
+  border-radius: 10%;
+
+  padding-bottom: 3em;
+}
+
+.day-modal {
+  margin-left: 3em;
+  margin-bottom: 1em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 80%;
+height: auto;
+overflow-y: auto;
+
+  border: 1px dotted;
+  
+}
+
+.day-modal h3 {
+  text-decoration: underline;
+}
+
+.day-modal-item {
+  margin-top: 40px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid red;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  color: whitesmoke;
+}
+
+.day-modal-title {
+  color: deeppink;
+  margin-top : 20px;
+
+}
+
+.menu-item-ingredient {
+  color: black;
+  text-decoration: underline;
+  text-decoration-style: dotted;
+}
+
+#close-day-modal {
+  margin-top: 15px;
 }
